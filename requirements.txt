@@ -1,0 +1,12 @@
+# Python side of the Peru tornado / P10-P90 experiment.
+# Simulation needs a licensed 64-bit Vensim DSS on Windows (README section 6);
+# without it the driver falls back to PySD, which needs no licence but is ~5x slower.
+numpy>=1.24
+pandas>=2.0
+scipy>=1.11
+openpyxl>=3.1        # reads PERU.xlsx and writes tornado_summary.xlsx
+matplotlib>=3.8      # figures
+pysd>=3.12           # optional: the licence-free simulation engine
+jupyter>=1.0         # the notebook
+nbconvert>=7.0       # headless execution of the notebook
+nbclient>=0.9

@@ -1,0 +1,30 @@
+# Vensim run files and per-worker scratch folders.
+*.vdfx
+*.vdf
+*.dat
+_work*/
+results/peru/_model/
+
+# Scratch output from diagnostics, probes and short test sweeps.
+/results/_*
+
+# The 3-factor published model: superseded by ModeloCh4_Sens2.vpmx, and 40 MB.
+# README section 6 says how to republish it from ModeloCh4_Sens.mdl, which is
+# tracked, if the archived three-factor study ever has to be re-derived.
+model/ModeloCh4_Sens.vpmx
+
+# Sweep logs
+logs/
+*.log
+*.out
+~$*
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,55 @@
+cff-version: 1.2.0
+title: >-
+  Uncertainty and sensitivity analysis of a system-dynamics power system
+  expansion model applied to Peru
+message: >-
+  If you use this model, its data or its analysis code, please cite both the
+  software and the associated article.
+type: software
+authors:
+  - given-names: Valentina
+    family-names: Betancur
+    affiliation: Universidad EIA
+  - given-names: Enrique
+    family-names: Ángel
+    affiliation: Universidad EIA
+  - given-names: Mariana
+    family-names: Gonzalez
+    affiliation: Universidad EIA
+  - given-names: Duvan
+    family-names: Gomez
+    affiliation: Universidad EIA
+  - given-names: Carolina
+    family-names: Montoya
+    affiliation: Universidad EIA
+  - given-names: Sebastian
+    family-names: Zapata
+    affiliation: Universidad EIA
+    email: szapatar@unal.edu.co
+license:
+  - MIT
+  - CC-BY-4.0
+version: 1.0.0
+date-released: '2026-10-04'
+keywords:
+  - power system expansion planning
+  - system dynamics
+  - uncertainty quantification
+  - Latin hypercube sampling
+  - sensitivity analysis
+  - infrastructure delays
+  - fuel prices
+  - Peru
+references:
+  - type: software
+    title: >-
+      Vensim-PyPSA coupled model for power system expansion under
+      infrastructure constraints (Brazil and Chile)
+    authors:
+      - given-names: Sebastian
+        family-names: Zapata
+        affiliation: Universidad EIA
+    repository-code: 'https://github.com/sebastianzapatar/vensimpypsa'
+    notes: >-
+      The model structure of this repository is identical to the Chile model of
+      the Brazil-Chile study; only the input workbook differs.
