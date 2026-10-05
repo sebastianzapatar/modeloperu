@@ -33,7 +33,7 @@ md(r"""
 This notebook is the executable record of the Peru experiment. It
 
 1. states what the model is and how a factor is made to reach it,
-2. builds the design — 1 base run, 2 tornado runs per factor, 200 Monte Carlo samples,
+2. builds the design — 1 base run, 2 tornado runs per factor, 120 Monte Carlo samples,
 3. runs, or loads, the ensemble through Vensim DSS,
 4. draws the **tornado diagram**,
 5. draws the **P10–P90 envelopes** of the four KPIs,
@@ -167,12 +167,12 @@ intervals as there are samples, one value is drawn at random inside each, and th
 are paired at random across factors. That covers every range evenly with far fewer runs
 than simple random sampling.
 
-The 200 samples are drawn as **two blocks** — 120 with seed 2026, 80 with seed 2027 —
-rather than one block of 200. Each block is a proper Latin hypercube and their union keeps
-uniform marginals; the first block reproduces the 120-sample design of the earlier Peru
-study exactly, so the runs already completed under it are reused verbatim instead of being
-discarded. Both seeds are fixed in the source, so the design is reproducible from the
-repository alone.
+The sample is declared as a list of **blocks** (`MC_BLOCKS`) rather than a flat sample
+count — currently one block of 120 with seed 2026. Each block is a proper Latin hypercube
+and the union of several keeps uniform marginals, so a smaller design stays an exact prefix
+of a larger one: appending `(80, 2027)` would extend the study to 200 samples without
+invalidating a single completed run. The seeds and the factor order are fixed in the source,
+so the design is reproducible from the repository alone.
 """)
 
 code(r"""
@@ -438,8 +438,8 @@ Three questions a reviewer will ask, answered with figures rather than assurance
 
 **Is the sample well spread?** (`09`) The design, projected onto each pair of factors.
 
-**Are 200 runs enough?** (`10`) P10, P50 and P90 recomputed from the first 10, 20, 30, 50,
-75, 100, 150 and 200 runs. If they have stopped moving, the sample is large enough — and if
+**Are 120 runs enough?** (`10`) P10, P50 and P90 recomputed from growing subsets of the
+Monte Carlo runs. If they have stopped moving, the sample is large enough — and if
 they have not, that is the finding.
 
 **Which factor dominates when everything moves at once?** (`11`) Spearman rank correlation

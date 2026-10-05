@@ -34,6 +34,7 @@ Requirements:  pip install pysd pandas numpy matplotlib openpyxl scipy
 """
 
 import os
+import platform
 for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
     os.environ.setdefault(_v, "1")   # one thread per simulation process
 
@@ -69,12 +70,18 @@ TRANS_DELAY_RANGE = 0.20    # +/-20 % transmission delays (same as "Delays Trans
 FUEL_RANGE = 0.15           # +/-15 % fuel prices
 DEMAND_RANGE = 0.20         # +/-20 % on the 2050 demand level (growth path)
 
-# Monte Carlo design, as two Latin-hypercube blocks rather than one.
-# The first block is the 120-sample design of the October 2026 study, kept
-# unchanged so its completed runs are reused verbatim; the second adds 80 more.
-# Each block is a proper Latin hypercube, and their union keeps uniform marginals,
-# so the 200 samples are space-filling without discarding four hours of compute.
-MC_BLOCKS = [(120, 2026), (80, 2027)]
+# Monte Carlo design, declared as a list of Latin-hypercube blocks rather than one
+# flat sample count. Each block is a proper Latin hypercube and the union of the
+# blocks keeps uniform marginals, so a smaller design stays an exact prefix of a
+# larger one: adding a block extends the study without invalidating a single
+# completed run, and dropping one shortens it the same way. The sampler draws one
+# column per factor in the order of ALL_FACTORS, so the block below is identical
+# to the 120-sample design of the October 2026 study on the three factors it
+# shares with it.
+#
+# To extend to 200 samples later, append (80, 2027) - nothing already simulated
+# has to be re-run.
+MC_BLOCKS = [(120, 2026)]
 N_SAMPLES = sum(n for n, _ in MC_BLOCKS)
 SEED = 2026
 N_WORKERS = max(1, (os.cpu_count() or 2) // 2)   # parallel simulations (~ physical cores)
@@ -518,8 +525,27 @@ class VensimDLL:
             if k > 0:
                 s = pd.Series(np.array(vals[:k], float), index=np.round(np.array(times[:k], float), 4))
                 out[var] = s[~s.index.duplicated(keep="last")].reindex(months, method="nearest")
+        # A run that extracted nothing must fail loudly. Without this check an empty
+        # result is written to disk and stamped complete: vensim_get_data returns
+        # <= 0 for every variable when the run file cannot be read, `out` stays
+        # empty, and the resulting one-column CSV looks like a finished run to the
+        # resume logic. Ten runs were silently lost that way before this check
+        # existed, and they would have reached the figures as missing data rather
+        # than as an error.
+        missing = [v for v in ("Total Generation Capacity", "Total Transmission",
+                               "Total Interconnection Capacity") if v not in out]
+        if missing:
+            raise RuntimeError(
+                f"simulation produced no data for {', '.join(missing)} "
+                f"({len(out)} of {len(self.vars)} variables extracted)")
+
         df = pd.DataFrame(out, index=months)
         df.index.name = "time"
+        # Vensim keeps every simulated run loaded in memory, so without this a
+        # worker grows by roughly a gigabyte per run and has to be recycled. The
+        # data has already been extracted above, so clearing costs nothing and
+        # keeps a worker's footprint flat for the whole sweep.
+        self.cmd("SPECIAL>CLEARRUNS")
         return df
 
 
@@ -611,6 +637,47 @@ def _params(row):
     return p
 
 
+class KeepAwake:
+    """Stop Windows from suspending the machine while a sweep is running.
+
+    A sweep is hours of work with no keyboard or mouse activity, so an idle
+    laptop drops into Modern Standby and takes the Vensim workers down with it:
+    the pool's child processes die, the parent waits forever on futures that will
+    never complete, and the run log simply stops. That happened once here, and
+    cost three hours of wall-clock time with no error message anywhere.
+
+    SetThreadExecutionState is the documented way for a process to say "the system
+    is in use even though nobody is touching it". It is scoped to this process and
+    released automatically when the process exits, so - unlike changing the power
+    plan - it cannot leave the machine misconfigured afterwards.
+
+    It does not override a closed lid or a manual sleep, and it is a no-op off
+    Windows; both are reported rather than hidden.
+    """
+
+    ES_CONTINUOUS = 0x80000000
+    ES_SYSTEM_REQUIRED = 0x00000001
+
+    def __enter__(self):
+        self.ok = False
+        if platform.system() != "Windows":
+            print("note: cannot prevent sleep on this platform", flush=True)
+            return self
+        import ctypes
+        self._k32 = ctypes.windll.kernel32
+        self.ok = bool(self._k32.SetThreadExecutionState(
+            self.ES_CONTINUOUS | self.ES_SYSTEM_REQUIRED))
+        print("sleep prevented for the duration of the sweep" if self.ok
+              else "WARNING: could not prevent sleep; the sweep may be interrupted",
+              flush=True)
+        return self
+
+    def __exit__(self, *exc):
+        if getattr(self, "ok", False):
+            self._k32.SetThreadExecutionState(self.ES_CONTINUOUS)
+        return False
+
+
 def run_all(design, engine, model_path, runs_dir, n_workers, final_time=FINAL_TIME):
     runs_dir.mkdir(parents=True, exist_ok=True)
     todo = [rid for rid in design.index
@@ -624,9 +691,19 @@ def run_all(design, engine, model_path, runs_dir, n_workers, final_time=FINAL_TI
         header = "run_id,kind," + ",".join(FACTORS) + ",finished_at,minutes,status"
         log.write_text(header + "\n", encoding="utf-8")
     t0 = time.time()
-    # Vensim keeps every simulated run in memory, so worker processes are recycled every few runs.
-    with ProcessPoolExecutor(max_workers=min(n_workers, len(todo)), initializer=_worker_init,
-                             initargs=(engine, str(model_path)), max_tasks_per_child=4) as ex:
+    # Workers are NOT recycled. They used to be, because Vensim accumulates every
+    # simulated run in memory; VensimDLL.run now clears them instead, so a worker's
+    # footprint stays flat and it can serve the whole sweep.
+    #
+    # Recycling was not merely unnecessary, it was the failure mode: with six
+    # workers and a limit of four tasks each, all six retired on the same task and
+    # their six replacements copied a 47 MB model and loaded it simultaneously.
+    # The memory spike killed the pool outright - no traceback, no stderr, just a
+    # parent waiting forever on futures that would never complete. It happened
+    # twice, both times at exactly 24 completed runs.
+    with KeepAwake(), ProcessPoolExecutor(
+            max_workers=min(n_workers, len(todo)), initializer=_worker_init,
+            initargs=(engine, str(model_path))) as ex:
         futs = []
         for rid in todo:
             r = design.loc[rid]
@@ -759,8 +836,8 @@ def plot_distribution(series, base, stats, out_dir):
         ax.annotate(f"P10 {_fmt(p10.iloc[-1], unit)}", (p10.index[-1], p10.iloc[-1]), xytext=(4, -9),
                     textcoords="offset points", fontsize=8, color=INK2)
     axes[0, 0].legend(loc="upper left")
-    fig.suptitle(f"Uncertainty range P10–P90 ({stats['n']} Monte Carlo runs: generation delays ±{GEN_DELAY_RANGE:.0%}, "
-                 f"transmission delays ±{TRANS_DELAY_RANGE:.0%}, fuel prices ±{FUEL_RANGE:.0%})",
+    spread = ", ".join(f"{lbl.lower()} ±{rng:.0%}" for _, rng, lbl in FACTORS.values())
+    fig.suptitle(f"Uncertainty range P10–P90 ({stats['n']} Monte Carlo runs: {spread})",
                  fontsize=12, color=INK, x=0.01, ha="left")
     fig.tight_layout()
     _save(fig, "01_distribution_P10_P90_timeseries.png", out_dir)
@@ -829,6 +906,9 @@ def plot_tornado(tornado, out_dir):
         ax.set_title(f"{label}", loc="left")
         ax.set_xlabel(f"Change vs base ({_fmt(base, unit)} {unit})")
         ax.grid(axis="y", visible=False)
+        # Cap the tick count: the widened limits that keep the value labels inside
+        # the panel otherwise produce five-digit ticks that run into each other.
+        ax.xaxis.set_major_locator(plt.MaxNLocator(5, prune="both"))
     # Outside the panels: inside the first one it sat on top of the bars.
     axes[0, 0].legend(loc="upper center", bbox_to_anchor=(1.03, 1.22), ncols=2,
                       frameon=False)
@@ -940,7 +1020,7 @@ def _stack_panels(sc, key, title, unit, fname, out_dir, peak=False, annual_sum=F
         if peak and sc[n]["data"]["peak_gw"] is not None:
             ax.plot(sc[n]["data"]["peak_gw"].index, sc[n]["data"]["peak_gw"].values, color=INK,
                     ls="--", lw=1.4, label="National peak demand")
-        ax.set_title(sc[n]["title"], loc="left", fontsize=11)
+        ax.set_title(sc[n].get("panel_title", sc[n]["title"]), loc="left", fontsize=9.5)
         ax.annotate(f"Total {f.sum(axis=1).iloc[-1]:,.1f}", (f.index[-1], f.sum(axis=1).iloc[-1]),
                     xytext=(-4, 6), textcoords="offset points", ha="right", fontsize=9, color=INK2)
         ax.set_ylim(0, ymax)
@@ -987,8 +1067,11 @@ def plot_method(design, kp, mc_ids, conv, rc, out_dir):
     labels = [FACTORS[k][2] for k in keys]
     oat = design[design.kind != "montecarlo"]
 
-    # 09 - sampling design: histograms (diagonal) + pairwise scatter
-    fig, axes = plt.subplots(3, 3, figsize=(11, 10))
+    # 09 - sampling design: histograms (diagonal) + pairwise scatter.
+    # The grid follows the number of factors; it used to be hard-coded at 3x3 and
+    # broke as soon as a fourth factor was added.
+    n = len(keys)
+    fig, axes = plt.subplots(n, n, figsize=(3.6 * n, 3.3 * n), squeeze=False)
     for i, ki in enumerate(keys):
         for j, kj in enumerate(keys):
             ax = axes[i, j]
@@ -1002,7 +1085,7 @@ def plot_method(design, kp, mc_ids, conv, rc, out_dir):
                 ax.scatter(oat[kj] * 100, oat[ki] * 100, s=40, color=PALETTE[1], marker="D",
                            edgecolor=SURFACE, linewidth=1,
                            label="Base + tornado runs" if (i, j) == (1, 0) else None)
-            if i == 2:
+            if i == n - 1:
                 ax.set_xlabel(f"{labels[j]} [% vs base]")
             if j == 0 and i != j:
                 ax.set_ylabel(f"{labels[i]} [% vs base]")
@@ -1050,16 +1133,34 @@ def plot_method(design, kp, mc_ids, conv, rc, out_dir):
 # ---------------------------------------------------------------------------
 # 5. TABLES
 # ---------------------------------------------------------------------------
+#: What each factor actually does to the model, for the README sheet of the summary
+#: workbook. Keyed by factor so the sheet follows the factor set rather than a
+#: hard-coded list of three.
+FACTOR_NOTES = {
+    "gen_delay": "Licensing + construction time of every technology, through the same "
+                 "mechanism as 'Other delays' in sheet 'Gen Investment parameters'. "
+                 "Expressed against the workbook base case (B15 = -0.2), not the planned time.",
+    "trans_delay": "Public-tender, investor-selection, licensing and construction times of "
+                   "transmission projects (lines and GETs, sheet 'Trans Investment "
+                   "parameters'). The 12-month planning cycle is deliberately not changed.",
+    "fuel": "'Fuel Cost' of every technology that burns fuel (sheet 'Gen Investment "
+            "parameters', row 21).",
+    "demand": "The 2050 demand level reached by the growth path. The multiplier is 1 in "
+              "January 2025 and 1 + factor in January 2050, so the starting point is "
+              "untouched and only the growth rate varies.",
+}
+
+
 def build_tables(design, kp, tornado, dist, sc, out_dir, conv, rc):
     last = sc["Base"]["data"]["trans_km"].index[-1].year
     years = [y for y in (2030, 2040, 2050) if y <= last] or [last]
     rows = []
     for n, s in sc.items():
         d = s["data"]
+        # One column per factor actually in play. These used to be three fixed
+        # columns, which silently dropped the demand factor from the sheet.
         r = {"Scenario": n, "Run": s["run_id"],
-             "Generation delays": f"{s['factors']['gen_delay']:+.1%}",
-             "Transmission delays": f"{s['factors']['trans_delay']:+.1%}",
-             "Fuel prices": f"{s['factors']['fuel']:+.1%}"}
+             **{FACTORS[k][2]: f"{s['factors'][k]:+.1%}" for k in FACTORS}}
         for k, (label, unit) in KPIS.items():
             ser = d[k].rolling(12, min_periods=1).mean() if k == "price" else d[k]
             for y in years:
@@ -1071,23 +1172,21 @@ def build_tables(design, kp, tornado, dist, sc, out_dir, conv, rc):
         scen[f"{label} {years[-1]} vs base [%]"] = (scen[col] / scen.loc["Base", col] - 1).mul(100).round(1)
 
     readme = pd.DataFrame([
-        ("Objective", "Assess how uncertainty in generation-plant delays, transmission delays and fuel prices "
-                      "affects transmission expansion, generation capacity and the country average price."),
-        ("Model", f"{MODEL_MDL.name} with data from {DATA_XLSX.name}; simulated 2025-01 to 2050-01 "
-                  f"(300 months, dt = 0.25 month) with PySD."),
-        ("Factor 1 – Generation delays", f"±{GEN_DELAY_RANGE:.0%} of licensing + construction time of every "
-                                         "technology (same mechanism as 'Other delays' in sheet 'Gen Investment "
-                                         "parameters'). Base = 0 %."),
-        ("Factor 2 – Transmission delays", f"±{TRANS_DELAY_RANGE:.0%} on the public-tender, investor-selection, "
-                                           "licensing and construction times of transmission projects (lines and "
-                                           "GETs, sheet 'Trans Investment parameters'). The 12-month planning cycle "
-                                           "is not changed."),
-        ("Factor 3 – Fuel prices", f"±{FUEL_RANGE:.0%} on 'Fuel Cost' of every technology "
-                                   "(sheet 'Gen Investment parameters', row 21)."),
+        ("Objective", "Assess how uncertainty in " + ", ".join(f[2].lower() for f in FACTORS.values()) +
+                      " affects transmission expansion, generation capacity and the country average price."),
+        # The engine is reported, not assumed: the same analysis can come from either
+        # the Vensim DLL or PySD, and a reader of the workbook has to know which.
+        ("Model", f"{MODEL_MDL.name} with data from {DATA_XLSX.name}, patched with the "
+                  f"{len(FACTORS)} sensitivity constants and published as {VENSIM_MODEL.name}; "
+                  f"simulated 2025-01 to 2050-01 (300 months, dt = 0.25 month) with "
+                  f"{'the Vensim DSS DLL' if VENSIM_MODEL.exists() else 'PySD'}."),
+        *[(f"Factor {i} – {FACTORS[k][2]}",
+           f"±{FACTORS[k][1]:.0%}. {FACTOR_NOTES[k]}")
+          for i, k in enumerate(FACTORS, 1)],
         ("Tornado diagram", "One-at-a-time: each factor is set to its low and its high value while the others stay "
                             "at base. Bars show the change of the KPI against the base case; factors are sorted by "
                             "swing (|high − low|)."),
-        ("P10–P90 distribution", f"{dist['n']} Latin-Hypercube Monte Carlo runs with the three factors varying "
+        ("P10–P90 distribution", f"{dist['n']} Latin-Hypercube Monte Carlo runs with all {len(FACTORS)} factors varying "
                                  "simultaneously (uniform distributions). P10 = value exceeded by 90 % of runs; "
                                  "P90 = value exceeded by 10 % of runs; P50 = median."),
         ("Best / worst scenario", "Chosen among the Monte Carlo runs: best = lowest country average price, worst = "
@@ -1134,8 +1233,7 @@ def build_tables(design, kp, tornado, dist, sc, out_dir, conv, rc):
     torn_tbl = torn_tbl.sort_values(["KPI", "Swing |high−low|"], ascending=[True, False])
 
     mc = design.join(kp).rename(columns={k: f"{v[0]} [{v[1]}]" for k, v in KPIS.items()})
-    mc = mc.rename(columns={"gen_delay": "Generation delays", "trans_delay": "Transmission delays",
-                            "fuel": "Fuel prices"})
+    mc = mc.rename(columns={k: FACTORS[k][2] for k in FACTORS})
 
     xlsx = out_dir / "tornado_summary.xlsx"
     with pd.ExcelWriter(xlsx, engine="openpyxl") as w:
@@ -1172,10 +1270,15 @@ def plot_summary_table(scen, dist_tbl, out_dir, yr=2050):
                         _fmt(d["P50"], unit), _fmt(d["P90"], unit),
                         f"{_fmt(scen.loc['Best', c], unit)} ({scen.loc['Best', f'{label} {yr} vs base [%]']:+.1f}%)",
                         f"{_fmt(scen.loc['Worst', c], unit)} ({scen.loc['Worst', f'{label} {yr} vs base [%]']:+.1f}%)"])
-    fac = [["Generation delays", *[scen.loc[s, "Generation delays"] for s in ("Base", "Best", "Worst")]],
-           ["Transmission delays", *[scen.loc[s, "Transmission delays"] for s in ("Base", "Best", "Worst")]],
-           ["Fuel prices", *[scen.loc[s, "Fuel prices"] for s in ("Base", "Best", "Worst")]]]
-    fig, (a1, a2) = plt.subplots(2, 1, figsize=(14, 5.6), gridspec_kw={"height_ratios": [1.5, 1]})
+    # One row per factor in play; this used to be three hard-coded rows.
+    fac = [[FACTORS[k][2], *[scen.loc[s, FACTORS[k][2]] for s in ("Base", "Best", "Worst")]]
+           for k in FACTORS]
+    # Height in proportion to the rows each table actually has, so the panels do not
+    # leave a gap when the factor count changes.
+    rows_top, rows_bottom = len(KPIS) + 1, len(fac) + 1
+    fig, (a1, a2) = plt.subplots(
+        2, 1, figsize=(14, 1.0 + 0.52 * (rows_top + rows_bottom)),
+        gridspec_kw={"height_ratios": [rows_top, rows_bottom]})
     for a in (a1, a2):
         a.axis("off")
     t1 = a1.table(cellText=kp_rows, colLabels=["KPI (2050)", "Base", "P10", "P50", "P90", "Best scenario",
@@ -1257,7 +1360,11 @@ def analyse(design, runs_dir, out_dir):
                  "fuel": "fuel", "demand": "demand"}
         detail = ", ".join(f"{short.get(k, k)} {f[k]:+.0%}" for k in FACTORS)
         sc[n] = dict(run_id=rid, data=data[rid], factors=f,
-                     title="Base case" if n == "Base" else f"{n} ({detail})")
+                     title="Base case" if n == "Base" else f"{n} ({detail})",
+                     # Two lines for the stacked panels: with four factors the
+                     # single-line form overflowed into the neighbouring title.
+                     panel_title=("Base case" if n == "Base"
+                                  else f"{n} ({rid})" + chr(10) + detail))
     print(f"  best = {best}, worst = {worst}")
 
     out_dir.mkdir(parents=True, exist_ok=True)

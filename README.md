@@ -21,8 +21,8 @@ will grow, how late projects will actually come online. The question here is not
 *what will happen* but **which of those unknowns actually moves the system, and by
 how much**.
 
-The experiment therefore runs the model **209 times** — one base case, two runs per
-factor for the tornado (eight), and **200 Monte Carlo samples** — and reports:
+The experiment therefore runs the model **129 times** — one base case, two runs per
+factor for the tornado (eight), and **120 Monte Carlo samples** — and reports:
 
 | Product | What it shows | Figure |
 |---|---|---|
@@ -97,8 +97,8 @@ the planning calendar rather than delay projects.
 |---|---|---|
 | Base case | 1 | every factor at its `PERU.xlsx` value (0 % change) |
 | Tornado (one at a time) | 8 | each factor at its minimum and its maximum, the others at 0 % |
-| Monte Carlo | 200 | all four factors vary simultaneously |
-| **Total** | **209** | each run simulates 2025-01 to 2050-01, 300 months at a 0.25-month step |
+| Monte Carlo | 120 | all four factors vary simultaneously |
+| **Total** | **129** | each run simulates 2025-01 to 2050-01, 300 months at a 0.25-month step |
 
 ### Factors and ranges
 
@@ -128,16 +128,19 @@ are samples, one value is drawn at random inside each, and the intervals of the
 factors are paired at random. This covers every range evenly with far fewer runs
 than simple random sampling.
 
-The 200 samples are drawn as **two blocks** — 120 with seed 2026 and 80 with seed
-2027 — rather than one block of 200. Each block is a proper Latin hypercube and
-their union keeps uniform marginals. The blocking exists so that a smaller design
-stays a prefix of a larger one: the first block is exactly the 120-sample design of
-the earlier three-factor Peru study, and because the sampler draws one column per
-factor in a fixed order with the demand column appended last, the *other three*
-factors keep the values they had there. (Adding a fourth factor still invalidates
-every Monte Carlo run, since each sample now also carries a non-zero demand value;
-what survived was the base case and the six original one-at-a-time runs. The
-three-factor results are archived under `results/peru_3factor/`.)
+The sample is declared in `peru_tornado.py` as a list of **blocks** (`MC_BLOCKS`)
+rather than a flat sample count, currently one block of 120 with seed 2026. Each
+block is a proper Latin hypercube and the union of several keeps uniform marginals,
+so a smaller design stays an exact prefix of a larger one: appending `(80, 2027)`
+extends the study to 200 samples without invalidating a single completed run, and
+removing a block shortens it the same way. The sampler draws one column per factor
+in the order of `ALL_FACTORS`, which is why the block is identical to the 120-sample
+design of the earlier three-factor Peru study on the three factors they share.
+
+(Adding the fourth factor did invalidate every Monte Carlo run, since each sample
+now also carries a non-zero demand value; what survived was the base case and the
+six original one-at-a-time runs. The three-factor results are archived under
+`results/peru_3factor/` rather than overwritten.)
 
 Both seeds and the factor order are fixed in `peru_tornado.py`, so the whole design
 is reproducible from the source alone; it is also written out to
@@ -161,7 +164,7 @@ is reproducible from the source alone; it is also written out to
 The price is averaged over twelve months because it swings month to month with
 hydrology; a single month is not representative.
 
-**Best and worst** are chosen among the 200 Monte Carlo runs on one stated metric:
+**Best and worst** are chosen among the 120 Monte Carlo runs on one stated metric:
 **lowest / highest country average price**. A single declared criterion keeps the
 selection auditable, which is the point of reporting two runs in full. A composite
 score over all four KPIs is available by setting
@@ -186,6 +189,8 @@ tools/
   build_notebook.py             regenerates the notebook from plain Python, so the
                                 .ipynb is never hand-edited
   run_notebook.py               executes the notebook headlessly, in place
+  verify_base_case.py           re-simulates the base case on the published model and
+                                compares it with the cached run and the reference
 results/peru/
   experiment_design.csv         the design actually executed
   runs/<run_id>.csv / .json     monthly results of each run / the factor values it used
@@ -244,14 +249,44 @@ python peru_tornado.py --workers 6 --demand off
 # figures and tables only, from the runs already on disk
 python peru_tornado.py --plots-only
 
+# check that the published model still reproduces the documented base case
+python tools/verify_base_case.py
+
 # quick check before committing to the full sweep: 5 short runs in a scratch folder
 python peru_tornado.py --engine vensim --samples 5 --final-time 24 --out results/_check
 ```
 
-A full 300-month run takes about 6 min under Vensim; with 6 parallel workers the
-209 runs take roughly **3.5 hours** on an 8-core machine. Each worker simulates in
+A full 300-month run takes 6-10 min under Vensim; with 6 parallel workers the
+129 runs take roughly **4 hours** on an 8-core machine. Each worker simulates in
 its own temporary folder with its own copy of the model, and worker processes are
 recycled every four runs because Vensim keeps every simulated run in memory.
+
+**The sweep keeps the machine awake.** Hours of simulation look like an idle
+machine to Windows, which drops a laptop into Modern Standby, kills the worker
+processes and leaves the parent waiting forever on futures that will never
+complete — silently, with no error in any log. `KeepAwake` in `peru_tornado.py`
+asserts `ES_SYSTEM_REQUIRED` for the duration of the sweep; it is scoped to the
+process and released on exit, so it cannot leave the power settings changed. It
+does not override a closed lid.
+
+**Workers are not recycled, and that is deliberate.** Vensim keeps every run it has
+simulated loaded in memory, so a worker would grow by about a gigabyte per run;
+`VensimDLL.run` issues `SPECIAL>CLEARRUNS` once the data has been extracted, which
+keeps a worker's footprint flat and lets it serve the whole sweep. An earlier
+version recycled each worker after four runs instead — and that was itself a
+failure mode: with six workers and a limit of four tasks, all six retired on the
+same task and their six replacements copied a 47 MB model and loaded it at once.
+The memory spike killed the pool outright, leaving no traceback, no stderr, and a
+parent process waiting forever on futures that would never complete. The
+signature is unmistakable once you know it: the sweep stops dead at exactly
+`workers x max_tasks_per_child` completed runs.
+
+**Do not start another Vensim process while a sweep is running.** A worker peaks
+around 3 GB during a simulation, so six of them already use most of a 32 GB machine;
+adding a seventh engine — even for a one-off check — pushes the machine into paging
+and stretches every run from 6 minutes to nearly 30. The symptom is unmistakable:
+the per-run CPU time stays flat while elapsed time grows. Lower `--workers` instead
+of running something alongside.
 
 **The sweep is resumable.** Every run writes `runs/<run_id>.csv` with its results and
 `runs/<run_id>.json` with the factor values it used; a cached run is reused **only
@@ -264,7 +299,7 @@ and only as zero. Each knob enters the model as a multiplier whose default value
 reproduces the original equation exactly, so a run made before a knob existed *is*
 the run that knob would have produced at zero. That is what let the base case and
 the six one-at-a-time runs of the three-factor study survive the addition of the
-demand factor, while all 200 Monte Carlo samples — which give demand a non-zero
+demand factor, while all Monte Carlo samples — which give demand a non-zero
 value — were correctly invalidated and re-simulated. The three-factor results are
 kept in `results/peru_3factor/` rather than overwritten.
 
@@ -277,7 +312,8 @@ kept in `results/peru_3factor/` rather than overwritten.
 | `Engine: pysd` when Vensim was expected | `ModeloCh4_Sens*.vpmx` or `vendll64.dll` not found; use `--engine vensim` to fail explicitly |
 | `Vensim could not load the published model` | no active Vensim DSS licence on this machine |
 | A short test run shows a huge demand effect | expected: the demand ramp is written as `Time / FINAL TIME`, so `--final-time 24` compresses the whole 25-year demand increase into two years. `--final-time` is for smoke tests only; every reported run uses the full 300 months |
-| Base case differs from 63.85 GW / 46,341 km | `PERU.xlsx` is not the base configuration |
+| Base case differs from 63.85 GW / 46,341 km | `PERU.xlsx` is not the base configuration, or the `.vpmx` was published against a different workbook. `python tools/verify_base_case.py` is the one-command check; the published four-knob model reproduces 63.85 GW and 46,341.23 km exactly |
+| A run finishes but its CSV has one column | the run file could not be read and no variable was extracted. `VensimDLL.run` now raises instead of writing an empty result and stamping it complete — ten runs were silently lost that way before the check existed |
 
 ---
 
@@ -292,8 +328,8 @@ measured with all factors moving at once.
 **P10–P90 (`01`, `02`).** From the Monte Carlo runs: at each month, P10 is the value
 10 % of runs fall below, P50 the median, P90 the value 90 % fall below. The band
 holds the central 80 % of outcomes. `10` re-computes those percentiles from the
-first 10, 20, 30, 50, 75, 100, 150 and 200 runs: if they have stopped moving, the
-sample is large enough — and that is a check, not a claim.
+growing subsets of the Monte Carlo runs: if they have stopped moving, the sample is
+large enough — and that is a check, not a claim.
 
 **Colour.** The categorical palette is fixed in slot order and never cycled, so a
 technology keeps its colour across every figure and every scenario; it was verified
@@ -316,9 +352,10 @@ Stated plainly, because they bound what the tornado means:
    of the simulation and holds to 2050.
 3. **Everything else is held at its `PERU.xlsx` value** — hydrology, investment
    costs, discount rate, reserve margins.
-4. **200 samples over four factors** resolve first-order effects and the shape of the
+4. **120 samples over four factors** resolve first-order effects and the shape of the
    output distribution; they do not resolve high-order interactions. Figure `10`
-   reports whether the percentiles have converged.
+   reports whether the percentiles have converged, and is the check that 120 is
+   enough rather than an assumption that it is.
 5. **One representative day per month** in the dispatch layer, so sustained scarcity
    events and intra-month storage cycling are under-represented.
 6. **Retirements are exogenous**: the technical-lifetime parameter exists in the
