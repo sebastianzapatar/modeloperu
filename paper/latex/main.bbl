@@ -1,0 +1,458 @@
+\begin{thebibliography}{50}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{\'Alvarez-Pi\~neiro et~al.(2026)\'Alvarez-Pi\~neiro, Berna-Escriche
+  and Blanco-Muelas}]{alvarez2026}
+\bibinfo{author}{\'Alvarez-Pi\~neiro, L.}, \bibinfo{author}{Berna-Escriche,
+  C.}, \bibinfo{author}{Blanco-Muelas, D.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Probabilistic assessment of spain's 2030 electricity
+  system via monte carlo analysis}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{260},
+  \bibinfo{pages}{125204}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2026.125204}.
+%Type = Article
+\bibitem[{Arango(2007)}]{arango2007}
+\bibinfo{author}{Arango, S.}, \bibinfo{year}{2007}.
+\newblock \bibinfo{title}{Simulation of alternative regulations in the
+  colombian electricity market}.
+\newblock \bibinfo{journal}{Socio-Economic Planning Sciences}
+  \bibinfo{volume}{41}, \bibinfo{pages}{305--319}.
+\newblock \DOIprefix\doi{10.1016/j.seps.2006.06.004}.
+%Type = Article
+\bibitem[{Assili et~al.(2008)Assili, Javidi~D.B. and Ghazi}]{assili2008}
+\bibinfo{author}{Assili, M.}, \bibinfo{author}{Javidi~D.B., M.H.},
+  \bibinfo{author}{Ghazi, R.}, \bibinfo{year}{2008}.
+\newblock \bibinfo{title}{An improved mechanism for capacity payment based on
+  system dynamics modeling for investment planning in competitive electricity
+  environment}.
+\newblock \bibinfo{journal}{Energy Policy} \bibinfo{volume}{36},
+  \bibinfo{pages}{3703--3713}.
+\newblock \DOIprefix\doi{10.1016/j.enpol.2008.06.034}.
+%Type = Article
+\bibitem[{Babatunde et~al.(2020)Babatunde, Munda and Hamam}]{babatunde2020}
+\bibinfo{author}{Babatunde, O.}, \bibinfo{author}{Munda, J.},
+  \bibinfo{author}{Hamam, Y.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Power system flexibility: A review}.
+\newblock \bibinfo{journal}{Energy Reports} \bibinfo{volume}{6},
+  \bibinfo{pages}{101--106}.
+\newblock \DOIprefix\doi{10.1016/j.egyr.2019.11.048}.
+%Type = Article
+\bibitem[{Barlas(1996)}]{barlas1996}
+\bibinfo{author}{Barlas, Y.}, \bibinfo{year}{1996}.
+\newblock \bibinfo{title}{Formal aspects of model validity and validation in
+  system dynamics}.
+\newblock \bibinfo{journal}{System Dynamics Review} \bibinfo{volume}{12},
+  \bibinfo{pages}{183--210}.
+\newblock
+  \DOIprefix\doi{10.1002/(sici)1099-1727(199623)12:3<183::aid-sdr103>3.0.co;2-4}.
+%Type = Article
+\bibitem[{Boateng et~al.(2026)Boateng, Jiancheng, Karikari, Enimil and
+  Opoku}]{boateng2026}
+\bibinfo{author}{Boateng, S.A.}, \bibinfo{author}{Jiancheng, X.},
+  \bibinfo{author}{Karikari, F.A.}, \bibinfo{author}{Enimil, B.},
+  \bibinfo{author}{Opoku, A.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{The governance threshold effect: Institutional
+  quality thresholds and their differential impact on solar, wind, and
+  hydropower deployment in emerging economies}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{271},
+  \bibinfo{pages}{125970}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2026.125970}.
+%Type = Article
+\bibitem[{Brown et~al.(2018)Brown, H\"orsch and Schlachtberger}]{brown2018}
+\bibinfo{author}{Brown, T.}, \bibinfo{author}{H\"orsch, J.},
+  \bibinfo{author}{Schlachtberger, D.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Pypsa: Python for power system analysis}.
+\newblock \bibinfo{journal}{Journal of Open Research Software}
+  \bibinfo{volume}{6}, \bibinfo{pages}{4}.
+\newblock \DOIprefix\doi{10.5334/jors.188}.
+%Type = Article
+\bibitem[{Campod{\'o}nico and Carrera(2022)}]{campodonico2022}
+\bibinfo{author}{Campod{\'o}nico, H.}, \bibinfo{author}{Carrera, C.},
+  \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Transici{\'o}n energ{\'e}tica y energ{\'i}as
+  renovables no convencionales en el per{\'u}} \bibinfo{note}{Reference
+  supplied by the co-authors; bibliographic details to be completed}.
+%Type = Article
+\bibitem[{Colina-Calvo(2024)}]{colinacalvo2024}
+\bibinfo{author}{Colina-Calvo, A.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Fossil fuel dependence and renewable energy
+  development in {P}eru} \bibinfo{note}{Reference supplied by the co-authors;
+  bibliographic details to be completed}.
+%Type = Article
+\bibitem[{De~la Cruz~Torres et~al.(2024)De~la Cruz~Torres, Mazadiego, Bolonio
+  and Pons-Esparver}]{delacruz2024}
+\bibinfo{author}{De~la Cruz~Torres, D.G.}, \bibinfo{author}{Mazadiego, L.F.},
+  \bibinfo{author}{Bolonio, D.}, \bibinfo{author}{Pons-Esparver, R.R.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Long-term forecast of energy demand towards a
+  sustainable future in renewable energies focused on geothermal energy in peru
+  (2020--2050): A leap model application}.
+\newblock \bibinfo{journal}{Sustainability} \bibinfo{volume}{16},
+  \bibinfo{pages}{4964}.
+\newblock \DOIprefix\doi{10.3390/su16124964}.
+%Type = Article
+\bibitem[{Del~R\'io et~al.(2026)Del~R\'io, Lazo and Watts}]{delrio2026}
+\bibinfo{author}{Del~R\'io, V.}, \bibinfo{author}{Lazo, J.},
+  \bibinfo{author}{Watts, D.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Financing renewable energy projects in latin america
+  beyond resource quality, levelized cost of electricity, project feasibility,
+  and the role of the weighted average cost of capital}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{274},
+  \bibinfo{pages}{126194}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2026.126194}.
+%Type = Article
+\bibitem[{Dyner and Larsen(2001)}]{dyner2001}
+\bibinfo{author}{Dyner, I.}, \bibinfo{author}{Larsen, E.R.},
+  \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{From planning to strategy in the electricity
+  industry}.
+\newblock \bibinfo{journal}{Energy Policy} \bibinfo{volume}{29},
+  \bibinfo{pages}{1145--1154}.
+\newblock \DOIprefix\doi{10.1016/s0301-4215(01)00040-4}.
+%Type = Misc
+\bibitem[{{Enerdata}(2024)}]{enerdata2024}
+\bibinfo{author}{{Enerdata}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{{P}eru energy information: natural gas consumption by
+  sector}.
+\newblock \bibinfo{howpublished}{Enerdata Global Energy and CO$_2$ Data}.
+\newblock \bibinfo{note}{Reference supplied by the co-authors; access date to
+  be completed}.
+%Type = Article
+\bibitem[{Fiestas-Chevez et~al.(2024)Fiestas-Chevez, Roldan-Fernandez,
+  Trigo-Garcia and Burgos-Payan}]{fiestas2024}
+\bibinfo{author}{Fiestas-Chevez, H.}, \bibinfo{author}{Roldan-Fernandez, J.M.},
+  \bibinfo{author}{Trigo-Garcia, A.L.}, \bibinfo{author}{Burgos-Payan, M.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Impact of renewables on the peruvian electricity
+  system}.
+\newblock \bibinfo{journal}{Journal of Cleaner Production}
+  \bibinfo{volume}{471}, \bibinfo{pages}{143389}.
+\newblock \DOIprefix\doi{10.1016/j.jclepro.2024.143389}.
+%Type = Article
+\bibitem[{Filippo~Antoniolli et~al.(2022)Filippo~Antoniolli, Naspolini,
+  de~Abreu and R\"uther}]{antoniolli2022}
+\bibinfo{author}{Filippo~Antoniolli, A.}, \bibinfo{author}{Naspolini, H.F.},
+  \bibinfo{author}{de~Abreu, J.a.F.}, \bibinfo{author}{R\"uther, R.},
+  \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{The role and benefits of residential rooftop
+  photovoltaic prosumers in brazil}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{187},
+  \bibinfo{pages}{204--222}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2022.01.072}.
+%Type = Article
+\bibitem[{Ford(2001)}]{ford2001}
+\bibinfo{author}{Ford, A.}, \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{Waiting for the boom:}.
+\newblock \bibinfo{journal}{Energy Policy} \bibinfo{volume}{29},
+  \bibinfo{pages}{847--869}.
+\newblock \DOIprefix\doi{10.1016/s0301-4215(01)00035-0}.
+%Type = Article
+\bibitem[{Forrester(1997)}]{forrester1997}
+\bibinfo{author}{Forrester, J.W.}, \bibinfo{year}{1997}.
+\newblock \bibinfo{title}{Industrial dynamics}.
+\newblock \bibinfo{journal}{Journal of the Operational Research Society}
+  \bibinfo{volume}{48}, \bibinfo{pages}{1037--1041}.
+\newblock \DOIprefix\doi{10.1038/sj.jors.2600946}.
+%Type = Article
+\bibitem[{Gacitua et~al.(2018)Gacitua, Gallegos, Henriquez-Auba, Lorca,
+  Negrete-Pincetic, Olivares, Valenzuela and Wenzel}]{gacitua2018}
+\bibinfo{author}{Gacitua, L.}, \bibinfo{author}{Gallegos, P.},
+  \bibinfo{author}{Henriquez-Auba, R.}, \bibinfo{author}{Lorca, A.},
+  \bibinfo{author}{Negrete-Pincetic, M.}, \bibinfo{author}{Olivares, D.},
+  \bibinfo{author}{Valenzuela, A.}, \bibinfo{author}{Wenzel, G.},
+  \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{A comprehensive review on expansion planning: Models
+  and tools for energy policy analysis}.
+\newblock \bibinfo{journal}{Renewable and Sustainable Energy Reviews}
+  \bibinfo{volume}{98}, \bibinfo{pages}{346--360}.
+\newblock \DOIprefix\doi{10.1016/j.rser.2018.08.043}.
+%Type = Article
+\bibitem[{Guliev and Solovova(2022)}]{guliev2022}
+\bibinfo{author}{Guliev, I.A.}, \bibinfo{author}{Solovova, Y.V.},
+  \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Peru's energy policy in the context of energy
+  transition}.
+\newblock \bibinfo{journal}{Cuadernos Iberoamericanos} \bibinfo{volume}{9},
+  \bibinfo{pages}{120--133}.
+\newblock \DOIprefix\doi{10.46272/2409-3416-2021-9-4-120-133}.
+%Type = Article
+\bibitem[{Herding et~al.(2024)Herding, Cossent, Rivier and
+  Ba\~nales}]{herding2024}
+\bibinfo{author}{Herding, L.}, \bibinfo{author}{Cossent, R.},
+  \bibinfo{author}{Rivier, M.}, \bibinfo{author}{Ba\~nales, S.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Assessing the impact of renewable energy penetration
+  and geographical allocation on transmission expansion cost: A comparative
+  analysis of two large-scale systems}.
+\newblock \bibinfo{journal}{Sustainable Energy, Grids and Networks}
+  \bibinfo{volume}{38}, \bibinfo{pages}{101349}.
+\newblock \DOIprefix\doi{10.1016/j.segan.2024.101349}.
+%Type = Article
+\bibitem[{Herrera et~al.(2019)Herrera, Dyner and Cosenz}]{herrera2019}
+\bibinfo{author}{Herrera, M.M.}, \bibinfo{author}{Dyner, I.},
+  \bibinfo{author}{Cosenz, F.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Assessing the effect of transmission constraints on
+  wind power expansion in northeast brazil}.
+\newblock \bibinfo{journal}{Utilities Policy} \bibinfo{volume}{59},
+  \bibinfo{pages}{100924}.
+\newblock \DOIprefix\doi{10.1016/j.jup.2019.05.010}.
+%Type = Article
+\bibitem[{Homma and Saltelli(1996)}]{homma1996}
+\bibinfo{author}{Homma, T.}, \bibinfo{author}{Saltelli, A.},
+  \bibinfo{year}{1996}.
+\newblock \bibinfo{title}{Importance measures in global sensitivity analysis of
+  nonlinear models}.
+\newblock \bibinfo{journal}{Reliability Engineering \&amp; System Safety}
+  \bibinfo{volume}{52}, \bibinfo{pages}{1--17}.
+\newblock \DOIprefix\doi{10.1016/0951-8320(96)00002-6}.
+%Type = Article
+\bibitem[{Lin and Zhao(2026)}]{lin2026}
+\bibinfo{author}{Lin, B.}, \bibinfo{author}{Zhao, H.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Green electricity system dynamics under the carbon
+  border adjustment mechanism}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{256},
+  \bibinfo{pages}{124069}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2025.124069}.
+%Type = Article
+\bibitem[{Luo et~al.(2024)Luo, Ahmadi, McLellan and Tezuka}]{luo2024}
+\bibinfo{author}{Luo, Y.}, \bibinfo{author}{Ahmadi, E.},
+  \bibinfo{author}{McLellan, B.C.}, \bibinfo{author}{Tezuka, T.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{A hybrid system dynamics model for power mix
+  trajectory simulation in liberalized electricity markets considering carbon
+  and capacity policy}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{233},
+  \bibinfo{pages}{121164}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2024.121164}.
+%Type = Inproceedings
+\bibitem[{McKay(1992)}]{mckay1992}
+\bibinfo{author}{McKay, M.D.}, \bibinfo{year}{1992}.
+\newblock \bibinfo{title}{Latin hypercube sampling as a tool in uncertainty
+  analysis of computer models}, in: \bibinfo{booktitle}{Proceedings of the 24th
+  conference on Winter simulation - WSC '92}, pp. \bibinfo{pages}{557--564}.
+\newblock \DOIprefix\doi{10.1145/167293.167637}.
+%Type = Article
+\bibitem[{Morcillo et~al.(2018)Morcillo, Franco and Angulo}]{morcillo2018}
+\bibinfo{author}{Morcillo, J.D.}, \bibinfo{author}{Franco, C.J.},
+  \bibinfo{author}{Angulo, F.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Simulation of demand growth scenarios in the
+  colombian electricity market: An integration of system dynamics and dynamic
+  systems}.
+\newblock \bibinfo{journal}{Applied Energy} \bibinfo{volume}{216},
+  \bibinfo{pages}{504--520}.
+\newblock \DOIprefix\doi{10.1016/j.apenergy.2018.02.104}.
+%Type = Manual
+\bibitem[{{National Renewable Energy Laboratory}(2024)}]{nrel2024}
+\bibinfo{author}{{National Renewable Energy Laboratory}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Annual Technology Baseline: Electricity}.
+\newblock \bibinfo{organization}{NREL}. \bibinfo{address}{Golden, CO}.
+\newblock \URLprefix \url{https://atb.nrel.gov/}.
+%Type = Article
+\bibitem[{Oliva(2004)}]{oliva2004}
+\bibinfo{author}{Oliva, R.}, \bibinfo{year}{2004}.
+\newblock \bibinfo{title}{Model structure analysis through graph theory:
+  partition heuristics and feedback structure decomposition}.
+\newblock \bibinfo{journal}{System Dynamics Review} \bibinfo{volume}{20},
+  \bibinfo{pages}{313--336}.
+\newblock \DOIprefix\doi{10.1002/sdr.298}.
+%Type = Article
+\bibitem[{Oyarz\'un et~al.(2026)Oyarz\'un, Feijoo, Kundu and
+  Castaneda}]{oyarzun2026}
+\bibinfo{author}{Oyarz\'un, F.}, \bibinfo{author}{Feijoo, F.},
+  \bibinfo{author}{Kundu, A.}, \bibinfo{author}{Castaneda, M.},
+  \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Assessing policy strategies for residential solar
+  photovoltaic adoption: A system dynamics approach with heuristic
+  optimization}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{274},
+  \bibinfo{pages}{126127}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2026.126127}.
+%Type = Article
+\bibitem[{P\'erez-Reyes and Tovar(2009)}]{perezreyes2009}
+\bibinfo{author}{P\'erez-Reyes, R.}, \bibinfo{author}{Tovar, B.},
+  \bibinfo{year}{2009}.
+\newblock \bibinfo{title}{Measuring efficiency and productivity change (ptf) in
+  the peruvian electricity distribution companies after reforms}.
+\newblock \bibinfo{journal}{Energy Policy} \bibinfo{volume}{37},
+  \bibinfo{pages}{2249--2261}.
+\newblock \DOIprefix\doi{10.1016/j.enpol.2009.01.037}.
+%Type = Article
+\bibitem[{Reyes(2025)}]{reyes2025}
+\bibinfo{author}{Reyes, R.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Energy transition policy frameworks in {P}eru and
+  {C}hile: a comparative assessment} \bibinfo{note}{Reference supplied by the
+  co-authors; bibliographic details to be completed}.
+%Type = Article
+\bibitem[{Richardson(2024)}]{richardson2024}
+\bibinfo{author}{Richardson, G.P.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Building confidence in exploratory models}.
+\newblock \bibinfo{journal}{System Dynamics Review} \bibinfo{volume}{40},
+  \bibinfo{pages}{e1769}.
+\newblock \DOIprefix\doi{10.1002/sdr.1769}.
+%Type = Article
+\bibitem[{Ritter et~al.(2019)Ritter, Meyer, Koch, Haller, Bauknecht and
+  Heinemann}]{ritter2019}
+\bibinfo{author}{Ritter, D.}, \bibinfo{author}{Meyer, R.},
+  \bibinfo{author}{Koch, M.}, \bibinfo{author}{Haller, M.},
+  \bibinfo{author}{Bauknecht, D.}, \bibinfo{author}{Heinemann, C.},
+  \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Effects of a delayed expansion of interconnector
+  capacities in a high res-e european electricity system}.
+\newblock \bibinfo{journal}{Energies} \bibinfo{volume}{12},
+  \bibinfo{pages}{3098}.
+\newblock \DOIprefix\doi{10.3390/en12163098}.
+%Type = Book
+\bibitem[{Rudnick and Velasquez(2019)}]{rudnick2019}
+\bibinfo{author}{Rudnick, H.}, \bibinfo{author}{Velasquez, C.},
+  \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Learning from Developing Country Power Market
+  Experiences: The Case of Peru}.
+\newblock \bibinfo{publisher}{World Bank, Washington, DC}.
+\newblock \DOIprefix\doi{10.1596/1813-9450-8772}.
+%Type = Article
+\bibitem[{Sadeghian and Mohammadi-Ivatloo(2026)}]{sadeghian2026}
+\bibinfo{author}{Sadeghian, O.}, \bibinfo{author}{Mohammadi-Ivatloo, B.},
+  \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Chance-constrained dynamic thermal line rating of
+  power system for enhancing stochastic renewable penetration}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{256},
+  \bibinfo{pages}{124030}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2025.124030}.
+%Type = Article
+\bibitem[{Sauma and Oren(2006)}]{sauma2006}
+\bibinfo{author}{Sauma, E.E.}, \bibinfo{author}{Oren, S.S.},
+  \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{Proactive planning and valuation of transmission
+  investments in restructured electricity markets}.
+\newblock \bibinfo{journal}{Journal of Regulatory Economics}
+  \bibinfo{volume}{30}, \bibinfo{pages}{261--290}.
+\newblock \DOIprefix\doi{10.1007/s11149-006-9003-y}.
+%Type = Article
+\bibitem[{Semperteg\'u{}i(2017)}]{sempertegui2017}
+\bibinfo{author}{Semperteg\'u{}i, R.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Regional electricity market integration in the
+  {A}ndean region: institutional barriers} \bibinfo{note}{Reference supplied by
+  the co-authors; bibliographic details to be completed}.
+%Type = Article
+\bibitem[{Sheng et~al.(2026)Sheng, Shen, Wang and Sun}]{sheng2026}
+\bibinfo{author}{Sheng, Y.}, \bibinfo{author}{Shen, L.}, \bibinfo{author}{Wang,
+  W.}, \bibinfo{author}{Sun, Y.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Optimal planning of urban-scale rooftop pv systems
+  for maximizing renewable energy integration by reducing grid
+  congestion-induced curtailments: A case study}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{264},
+  \bibinfo{pages}{125559}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2026.125559}.
+%Type = Article
+\bibitem[{da~Silva and Carneiro(2025)}]{dasilva2025}
+\bibinfo{author}{da~Silva, A.V.}, \bibinfo{author}{Carneiro, C.J.},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Renewable electricity expansion and sustainable
+  development in brazil: A regional efficiency analysis}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{248},
+  \bibinfo{pages}{122996}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2025.122996}.
+%Type = Article
+\bibitem[{Simshauser(2010)}]{simshauser2010}
+\bibinfo{author}{Simshauser, P.}, \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{Resource adequacy, capital adequacy and investment
+  uncertainty in the australian power market}.
+\newblock \bibinfo{journal}{The Electricity Journal} \bibinfo{volume}{23},
+  \bibinfo{pages}{67--84}.
+\newblock \DOIprefix\doi{10.1016/j.tej.2009.12.006}.
+%Type = Article
+\bibitem[{Sousa et~al.(2024)Sousa, Lagarto and Fonseca}]{sousa2024}
+\bibinfo{author}{Sousa, J.}, \bibinfo{author}{Lagarto, J.a.},
+  \bibinfo{author}{Fonseca, M.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{The role of storage and flexibility in the energy
+  transition: Substitution effect of resources with application to the
+  portuguese electricity system}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{228},
+  \bibinfo{pages}{120694}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2024.120694}.
+%Type = Book
+\bibitem[{Sterman(2000)}]{sterman2000}
+\bibinfo{author}{Sterman, J.D.}, \bibinfo{year}{2000}.
+\newblock \bibinfo{title}{Business Dynamics: Systems Thinking and Modeling for
+  a Complex World}.
+\newblock \bibinfo{publisher}{Irwin/McGraw-Hill}, \bibinfo{address}{Boston}.
+%Type = Article
+\bibitem[{Sun et~al.(2026)Sun, Yang and Zhou}]{sun2026}
+\bibinfo{author}{Sun, J.}, \bibinfo{author}{Yang, Y.}, \bibinfo{author}{Zhou,
+  P.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Mitigating local opposition in renewable energy
+  projects expansion: Evidence from denmark}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{257},
+  \bibinfo{pages}{124902}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2025.124902}.
+%Type = Article
+\bibitem[{Tao(2025)}]{tao2025}
+\bibinfo{author}{Tao, S.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{An investment game model for offshore power grid
+  multi-stage expansion planning}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{238},
+  \bibinfo{pages}{121938}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2024.121938}.
+%Type = Article
+\bibitem[{Torres(2026)}]{torres2026}
+\bibinfo{author}{Torres, J.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Onshore wind development in {P}eru after the
+  suspension of renewable auctions} \bibinfo{note}{Reference supplied by the
+  co-authors; bibliographic details to be completed}.
+%Type = Inproceedings
+\bibitem[{Valdivia et~al.(2024)Valdivia, Miraval and Chirre}]{valdivia2024}
+\bibinfo{author}{Valdivia, A.H.}, \bibinfo{author}{Miraval, M.M.},
+  \bibinfo{author}{Chirre, J.C.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Experience of congestion analysis in peruvian power
+  system transmission planning}, in: \bibinfo{booktitle}{2024 IEEE 42nd Central
+  America and Panama Convention (CONCAPAN XLII)}, pp. \bibinfo{pages}{1--5}.
+\newblock \DOIprefix\doi{10.1109/concapan63470.2024.10933870}.
+%Type = Article
+\bibitem[{Valipour et~al.(2026)Valipour, Nourollahi, Hagh, Zare and
+  Zadeh}]{valipour2026}
+\bibinfo{author}{Valipour, E.}, \bibinfo{author}{Nourollahi, R.},
+  \bibinfo{author}{Hagh, M.T.}, \bibinfo{author}{Zare, K.},
+  \bibinfo{author}{Zadeh, S.G.}, \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Boosting renewable hosting capacity via tcsc-enhanced
+  transmission system planning: P-robust stochastic approach}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{258},
+  \bibinfo{pages}{124922}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2025.124922}.
+%Type = Manual
+\bibitem[{{Ventana Systems}(2024)}]{ventana2024}
+\bibinfo{author}{{Ventana Systems}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Vensim {DSS} Reference Manual}.
+\newblock \bibinfo{organization}{Ventana Systems, Inc.}
+%Type = Article
+\bibitem[{Wu and Zhong(2025)}]{wu2025}
+\bibinfo{author}{Wu, Y.}, \bibinfo{author}{Zhong, L.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Optimal adoption and cost-effectiveness of rooftop
+  solar and wind turbines for community energy systems under climate change}.
+\newblock \bibinfo{journal}{Renewable Energy} \bibinfo{volume}{251},
+  \bibinfo{pages}{123473}.
+\newblock \DOIprefix\doi{10.1016/j.renene.2025.123473}.
+%Type = Article
+\bibitem[{Zapata et~al.(2018)Zapata, Castaneda, Jimenez, Julian~Aristizabal,
+  Franco and Dyner}]{zapata2018}
+\bibinfo{author}{Zapata, S.}, \bibinfo{author}{Castaneda, M.},
+  \bibinfo{author}{Jimenez, M.}, \bibinfo{author}{Julian~Aristizabal, A.},
+  \bibinfo{author}{Franco, C.J.}, \bibinfo{author}{Dyner, I.},
+  \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Long-term effects of 100\% renewable generation on
+  the colombian power market}.
+\newblock \bibinfo{journal}{Sustainable Energy Technologies and Assessments}
+  \bibinfo{volume}{30}, \bibinfo{pages}{183--191}.
+\newblock \DOIprefix\doi{10.1016/j.seta.2018.10.008}.
+
+\end{thebibliography}
