@@ -28,3 +28,17 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# LaTeX build artefacts. The PDFs are kept (they are the deliverable); everything
+# latexmk regenerates is not.
+paper/latex/*.aux
+paper/latex/*.bbl
+paper/latex/*.blg
+paper/latex/*.fdb_latexmk
+paper/latex/*.fls
+paper/latex/*.log
+paper/latex/*.out
+paper/latex/*.toc
+paper/latex/*.spl
+paper/latex/*.synctex.gz
+paper/latex/_out/
