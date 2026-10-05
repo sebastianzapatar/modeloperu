@@ -1,112 +1,68 @@
 \section{The Peruvian power system}
 \label{sec:peru}
 
-\subsection{Overview and institutional structure}
+\subsection{Market structure and generation mix}
 \label{sec:peru:overview}
 
-In the late 1980s Peru's power sector was in crisis, driven by a broader
-macroeconomic collapse and poorly performing utilities. The response was a
-structural reform: the country moved from an integrated state system to a
-competitive wholesale market with marginal nodal prices, capacity payments and
-bilateral contracts, which delivered efficiency gains, new installed capacity and a
-more secure supply \citep{rudnick2019}. The Electric Concessions Law of 1992
-unbundled what had been a single chain into generation, transmission and
-distribution, opening the sector to private investment. A subsequent wave of
-reforms, including the supply auctions introduced from 2006, consolidated
-productivity gains, with clear efficiency improvements in distribution after
-restructuring \citep{perezreyes2009}. Challenges persist in state-owned companies
-and in rural coverage.
+Following a macroeconomic collapse in the late 1980s, Peru moved from an integrated
+state system to a competitive wholesale market with marginal nodal prices, capacity
+payments and bilateral contracts. The Electric Concessions Law of 1992 unbundled
+generation, transmission and distribution, and the supply auctions introduced from
+2006 consolidated productivity gains, with clear efficiency improvements in
+distribution after restructuring \citep{rudnick2019,perezreyes2009}.
 
-\subsection{Generation mix and dependence on thermal generation}
-\label{sec:peru:mix}
+The generation matrix remains dominated by hydropower and natural gas. By 2015 the
+mix was roughly 50\,\% hydro and 45\,\% gas, with thermal sources overall accounting
+for about 41\,\% of generation by 2017 \citep{rudnick2019}. The dependence is
+structural: over half the natural gas consumed in the country goes to power plants
+\citep{enerdata2024}, making electricity the primary driver of gas demand and
+exposing it to price and supply shocks. Despite substantial solar, wind, geothermal
+and biomass potential, non-conventional renewables supplied only about 5\,\% of
+generation by 2022 \citep{campodonico2022}.
 
-The Peruvian generation matrix is dominated by hydropower and natural-gas-based
-thermal generation. By 2015 the major technologies were roughly 50\,\% hydro and
-45\,\% natural gas, with thermal sources overall --- gas, coal and oil ---
-accounting for approximately 41\,\% of generation by 2017 \citep{rudnick2019}. This
-gas dependence is structural rather than incidental: over half of all natural gas
-consumed in the country goes to power plants \citep{enerdata2024}, which makes the
-electricity sector the primary driver of gas demand and leaves it exposed to price
-shocks and supply disruptions.
+\citet{fiestas2024} find that raising non-conventional renewables to 28\,\% of the
+matrix would cut gas consumption by \SI{2.04}{\kilo\meter\cubed} and avoid
+\SI{4.99}{\mega\tonne} CO$_2$-eq annually while reducing system costs, and
+\citet{delacruz2024} reach compatible conclusions to 2050. The economic case is
+established; the route is not. The auction mechanism that for a decade channelled
+renewable investment has been suspended, leaving developers without a reliable off-take
+signal \citep{campodonico2022,torres2026}, and the grid was not built with variable
+renewables in mind. This combination is not unusual: institutional quality and the cost
+of capital, rather than resource quality, condition deployment
+\citep{boateng2026,delrio2026}.
 
-Despite substantial potential in solar, wind, geothermal, biomass and hydroelectric
-resources, non-hydro renewables have remained marginal. Wind, solar and biomass
-together contributed only 2.8\,\% of net generation in 2017 \citep{rudnick2019}, and
-by 2022 only around 5\,\% of electricity generation came from non-conventional
-renewable sources \citep{campodonico2022}. There has been diversification into solar
-photovoltaics, wind, biomass and small hydro, but thermal dependence on natural gas
-remains the defining structural feature of the matrix.
-
-\subsection{Renewable expansion potential}
-\label{sec:peru:potential}
-
-Peru's resource base is substantial --- solar radiation, coastal and highland wind,
-geothermal activity, biomass and hydroelectric potential are all present in
-significant measure --- yet little of it has been converted into generation
-capacity. \citet{fiestas2024} find that raising non-conventional renewables to
-28.26\,\% of the matrix would cut gas consumption by \SI{2.04}{\kilo\meter\cubed}
-and avoid \SI{4.99}{\mega\tonne} CO$_2$-eq annually while reducing overall system
-costs. Longer-range scenarios to 2050 point the same way: prioritising renewable
-integration alongside transmission and distribution efficiency improvements
-produces significantly lower emissions than the baseline trajectory
-\citep{delacruz2024}. The economic and environmental case is, in other words,
-reasonably well established.
-
-What is less clear is how to get there. The auction mechanism that for over a
-decade provided a structured channel for renewable investment has been suspended,
-leaving developers without a reliable off-take signal \citep{campodonico2022}. The
-surrounding conditions make this harder: excess installed capacity depresses
-wholesale prices, economic growth has slowed, and the regulatory framework is
-fragmented across institutions with overlapping mandates. On top of that, the grid
-was not built with variable renewables in mind, and the mismatch between where the
-best resources are and where demand is concentrated remains an unresolved physical
-constraint \citep{torres2026}. The international evidence suggests this combination
-is not unusual: \citet{boateng2026} show that institutional quality conditions how
-strongly renewable deployment responds to otherwise identical incentives, and
-\citet{delrio2026} find that in Latin America the cost of capital, rather than
-resource quality or levelised cost, determines which projects are financed.
-
-\subsection{Transmission corridors and the zonal structure}
+\subsection{Zonal structure and transmission}
 \label{sec:peru:zones}
 
-Transmission infrastructure is both a current bottleneck and a strategic lever for
-Peru's energy transition. Within the national system, congestion management has
-become more sophisticated, with $n-1$ contingency screening alongside demand,
-generation, fuel-price and weather projections, enabling early detection of
-long-term congestion points and supporting a network that can better accommodate
-renewable sources while reducing operational costs \citep{valdivia2024}.
-
-The model represents the system as three zones connected in series, shown in
-Figure~\ref{fig:map}. This is not a simplification imposed for tractability but a
-representation of the physical topology: Peru's main grid runs longitudinally, and
-the consequence is that the southern zone reaches the rest of the system only
-through the centre. Table~\ref{tab:zones} reports the January 2025 starting
-condition. The centre zone (Z2) holds 60\,\% of installed capacity, the two
-corridors Z1--Z2 and Z2--Z3 provide \SI{900}{\mega\watt} and
-\SI{700}{\mega\watt} of transfer capability respectively, and there is no direct
-Z1--Z3 path. A series topology of this kind has no redundancy: a constraint on the
-central corridor isolates a third of the system, and every inter-zonal transfer
-between the extremes consumes capacity on both corridors.
+The model represents the system as three zones connected in series
+(Figure~\ref{fig:map}). This is not a simplification for tractability but the
+physical topology: Peru's main grid runs longitudinally, so the southern zone
+reaches the rest of the system only through the centre. Table~\ref{tab:zones}
+reports the January 2025 starting condition. The centre zone holds 60\,\% of
+installed capacity; the Z1--Z2 and Z2--Z3 corridors provide \SI{900}{\mega\watt} and
+\SI{700}{\mega\watt} of transfer capability; there is no direct Z1--Z3 path. A
+series topology has no redundancy: a constraint on the central corridor isolates a
+third of the system, and every transfer between the extremes consumes capacity on
+both corridors.
 
 \begin{figure}[tb]
   \centering
-  \includegraphics[width=0.46\textwidth]{mapa.png}
-  \caption{Zonal representation of the Peruvian power system. Three zones are
-  connected in series: north (Z1), centre (Z2) and south (Z3). There is no direct
-  Z1--Z3 corridor, so all exchange between the extremes transits the centre.}
+  \includegraphics[width=0.40\textwidth]{mapa.png}
+  \caption{Zonal representation of the Peruvian power system: north (Z1), centre
+  (Z2) and south (Z3) in series. All exchange between the extremes transits the
+  centre.}
   \label{fig:map}
 \end{figure}
 
 \begin{table}[tb]
   \centering
-  \caption{Initial condition of the Peruvian system, January 2025, as represented
-  in the model. Capacity is the sum over the technologies present in each zone;
-  corridor capacity is the initial inter-zonal transfer limit.}
+  \caption{Initial condition, January 2025, as represented in the model. Technology
+  shares are given in Supplementary Material~S2.}
   \label{tab:zones}
   \small
   \begin{tabular}{@{}llrr@{}}
     \toprule
-    Zone & Description & Installed capacity [\si{\mega\watt}] & Share \\
+    Zone & Description & Capacity [\si{\mega\watt}] & Share \\
     \midrule
     Z1 & North   & \num{1606.1} & 11.4\,\% \\
     Z2 & Centre  & \num{8461.9} & 60.2\,\% \\
@@ -114,103 +70,43 @@ between the extremes consumes capacity on both corridors.
     \midrule
     \multicolumn{2}{@{}l}{\textbf{Total}} & \textbf{\num{14057.0}} & 100\,\% \\
     \midrule
-    \multicolumn{4}{@{}l}{\emph{Interconnection corridors}} \\
-    Z1--Z2 & \SI{232.3}{\kilo\meter} corridor & \multicolumn{2}{r}{\SI{900}{\mega\watt}} \\
-    Z2--Z3 & \SI{271.8}{\kilo\meter} corridor & \multicolumn{2}{r}{\SI{700}{\mega\watt}} \\
-    \midrule
-    \multicolumn{2}{@{}l}{Total transmission network} & \multicolumn{2}{r}{\SI{16180}{\kilo\meter}} \\
+    \multicolumn{4}{@{}l}{\emph{Corridors:} Z1--Z2 \SI{900}{\mega\watt} over
+      \SI{232.3}{\kilo\meter}; Z2--Z3 \SI{700}{\mega\watt} over \SI{271.8}{\kilo\meter}} \\
+    \multicolumn{4}{@{}l}{\emph{Network:} \SI{16180}{\kilo\meter} total;
+      thermal and reservoir hydro are 78\,\% of capacity, wind and solar 10.7\,\%} \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-The initial technology mix, reported in Table~\ref{tab:techmix}, shows the
-structural features described above: thermal plant and reservoir hydro together
-account for 78\,\% of capacity, while wind and solar combined contribute 10.7\,\%.
+Congestion management in Peruvian planning has become more sophisticated, with
+$n-1$ contingency screening alongside demand, generation, fuel-price and weather
+projections \citep{valdivia2024}. At regional level, Andean interconnection is
+technically and economically feasible but has stalled on regulatory sovereignty
+rather than engineering \citep{sempertegui2017,guliev2022}.
 
-\begin{table}[tb]
-  \centering
-  \caption{Installed generation capacity by technology, January 2025.}
-  \label{tab:techmix}
-  \small
-  \begin{tabular}{@{}lrr@{}}
-    \toprule
-    Technology & Capacity [\si{\mega\watt}] & Share \\
-    \midrule
-    Thermal (gas, group 2)        & \num{4630.6} & 32.9\,\% \\
-    Hydro --- reservoir           & \num{3705.6} & 26.4\,\% \\
-    Thermal (gas, group 1)        & \num{2622.7} & 18.7\,\% \\
-    Hydro --- run-of-river        & \num{1532.5} & 10.9\,\% \\
-    Wind --- onshore              & \num{1021.3} &  7.3\,\% \\
-    Solar PV                      &  \num{477.8} &  3.4\,\% \\
-    Biomass                       &   \num{66.6} &  0.5\,\% \\
-    \midrule
-    \textbf{Total}                & \textbf{\num{14057.0}} & 100\,\% \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-At the regional level, analyses of Andean interconnection indicate that technically
-and economically feasible links among Bolivia, Chile, Colombia, Ecuador and Peru
-would generate long-run economic and environmental benefits. These opportunities
-remain largely unexecuted. Unlike Central America, which has advanced toward a
-regional electricity market through supranational institutions, the Andean region
-has stalled, primarily because member states are reluctant to cede regulatory
-sovereignty, despite transmission infrastructure that makes integration technically
-viable \citep{sempertegui2017,guliev2022}. The gap between technical feasibility and
-political will, rather than any engineering constraint, is the principal barrier.
-
-\subsection{Planning challenges and infrastructure delays}
+\subsection{Planning challenges and the modelling implication}
 \label{sec:peru:delays}
 
-The gains from Peru's 1990s reform were real but uneven, and over time the limits
-of the institutional design became apparent. Once the initial wave of privatisation
-ran its course, new investment in generation and transmission slowed considerably,
-a sign that the regulatory framework was not generating the long-term certainty
-that infrastructure capital requires \citep{rudnick2019}. State-owned distributors
-have continued to underperform, rural electrification remains incomplete, and
-government has periodically intervened outside market mechanisms in ways that
-distort price signals.
+The gains from the 1990s reform were real but uneven. Once the initial wave of
+privatisation ran its course, investment in generation and transmission slowed
+considerably, indicating that the regulatory framework was not generating the
+long-term certainty infrastructure capital requires \citep{rudnick2019}. The
+suspension of the auction mechanism has hit onshore wind hardest: projects conceived
+for structured procurement now compete in a spot market under price uncertainty,
+and the best wind resources remain far from consumption \citep{torres2026}. Fossil
+dependence and a renewable share of roughly 5.5\,\% of total energy leave Peru
+exposed to external price swings \citep{colinacalvo2024}.
 
-These shortcomings matter now, as the country attempts to expand its renewable
-base. The suspension of the auction mechanism has hit onshore wind hardest:
-projects conceived for a structured procurement environment are instead being asked
-to compete in a spot market under considerable price uncertainty
-\citep{torres2026}. Beyond procurement, wind development faces a geographic
-difficulty --- the best resources are far from consumption, and the grid lacks the
-flexibility to bridge that gap. Taken together, fossil-fuel dependence and a
-renewable share of roughly 5.5\,\% of total energy leave Peru exposed to external
-price swings while limiting access to cleaner supply, a situation that will not
-improve without more deliberate institutional backing \citep{colinacalvo2024}.
-
-This is the feature of the Peruvian case that motivates the modelling choice in
-Section~\ref{sec:methodology}. Lead times here are not an engineering parameter but
-an institutional outcome, and they differ systematically between generation, which
-responds to a market signal, and transmission, which is planned centrally and
+This is the feature that motivates the modelling choice in
+Section~\ref{sec:methodology}. Lead times here are an institutional outcome rather
+than an engineering parameter, and they differ systematically between generation,
+which responds to a market signal, and transmission, which is planned centrally and
 delivered on a longer clock. Representing that asymmetry explicitly is what allows
-the model to be asked which of the two actually binds.
+the model to be asked which of the two binds.
 
-\subsection{Relevance of the Peruvian case}
-\label{sec:peru:relevance}
-
-Peru occupies a distinctive position in comparative analyses of Latin American
-energy transitions, functioning simultaneously as a reference case for successful
-market reform and as a cautionary example of its limits. The post-1992
-restructuring achieved genuine competition, lower wholesale prices and improved
-security of supply, but at the cost of increasing fossil-fuel dependence and a high
-reserve margin that raises questions about long-term allocative efficiency
-\citep{rudnick2019}. Peru was also among the regional pioneers of
-technology-specific renewable auctions, which produced price reductions of 78\,\%
-for solar and 53\,\% for wind and demonstrated that competitive procurement can
-scale non-conventional renewables in emerging markets.
-
-Early policy innovation has not, however, translated into a consolidated transition
-strategy. Legal reforms have accumulated incrementally rather than forming a unified
-framework, and no comprehensive national decarbonisation plan exists --- a gap
-visible when Peru is set against Chile, which started from a comparable liberalised
-base and has moved considerably further \citep{reyes2025}. Peru's situation reflects
-a tension that runs through the region: the same country holds major hydrocarbon
-reserves, Camisea being the most significant, alongside world-class solar, wind,
-biomass and green hydrogen potential. How governments navigate that duality, and
-the related choices about gas as a transitional fuel, hydropower expansion and
-regional grid integration, will do much to determine what Latin America's energy
-system looks like in the long run \citep{guliev2022}.
+Peru is instructive comparatively: simultaneously a reference case for successful
+market reform and a cautionary example of its limits --- competition and improved
+security of supply, but increasing fossil dependence and a high reserve margin
+\citep{rudnick2019}; early leadership in renewable auctions, but no consolidated
+transition strategy, a gap visible against Chile, which started from a comparable base
+and has moved further \citep{reyes2025,guliev2022}.

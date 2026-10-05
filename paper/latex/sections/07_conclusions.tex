@@ -1,81 +1,57 @@
 \section{Conclusions and policy implications}
 \label{sec:conclusions}
 
-We set out to establish which uncertainty governs the trajectory of the Peruvian
-power system, rather than to forecast that trajectory. A system dynamics model with
-explicit generation and transmission pipelines, coupled to a congestion-aware
-dispatch and subjected to a 129-run designed experiment over 2025--2050, gives an
-unambiguous answer.
+We set out to establish which uncertainty governs the Peruvian power system, not to
+forecast it. A system dynamics model with explicit generation and transmission
+pipelines, subjected to a 129-run designed experiment over 2025--2050, answers
+unambiguously.
 
-\paragraph{Demand growth dominates, by an order of magnitude.} Over the sampled
-ranges, demand growth reaches Spearman rank correlations of $0.985$ with required
-transmission, $0.973$ with installed capacity and $-0.752$ with the average price,
-while no other factor exceeds $0.27$ in absolute value. A $\pm$20\,\% band on the
-2050 demand level moves required transmission by $-18.9$\,\% to $+23.8$\,\% and
-installed capacity by $-24.0$\,\% to $+29.3$\,\%. The one-at-a-time and the
-all-factors-varying evidence agree on this ranking.
+\emph{Demand growth dominates, by an order of magnitude.} It reaches Spearman rank
+correlations of $0.985$ with required transmission, $0.973$ with installed capacity
+and $-0.752$ with the average price, while no other factor exceeds $0.27$ in absolute
+value. A $\pm$20\,\% band on the 2050 demand level moves required transmission by
+$-18.9$\,\% to $+23.8$\,\% and installed capacity by $-24.0$\,\% to $+29.3$\,\%. The
+one-at-a-time and all-factors-varying evidence agree on this ranking.
 
-\paragraph{Fuel-price risk is weaker than the literature on Peru implies, and for a
-structural reason.} Fuel prices are the weakest driver on three of four indicators,
-moving the 2050 average price by \SI{0.005}{\USD\per\mega\watt\hour}. The model's own
-expansion path removes the exposure: thermal generation falls to
+\emph{Fuel-price risk is weaker than the literature on Peru implies, for a structural
+reason.} Fuel prices are the weakest driver on three of four indicators, moving the
+2050 average price by \SI{0.005}{\USD\per\mega\watt\hour}, because the expansion path
+itself removes the exposure: thermal generation falls to
 \SI{7.5}{\tera\watt\hour\per\year} of \SI{148.8}{\tera\watt\hour\per\year} by 2050.
-Fuel-price risk in Peru is therefore better understood as a near-term exposure
-contingent on transmission delivery than as an independent long-run risk.
+Fuel-price risk is a near-term exposure contingent on transmission delivery rather
+than an independent long-run risk.
 
-\paragraph{The least-cost trajectory is the most network-intensive.} Faster demand
-growth lowers the long-run average price, because it sustains the price signal long
-enough to pull forward low-cost wind and solar. The best case on delivered price
-requires \SI{58562}{\kilo\meter} of transmission, 26.4\,\% more than the central case
-and 50\,\% more than the worst, with 10.3\,\% more inter-zonal transfer capability.
-For a system whose grid is already the binding constraint, the cheap path is the one
-that demands most of the planner.
+\emph{The least-cost trajectory is the most network-intensive.} Faster demand growth
+lowers the long-run average price by sustaining the price signal long enough to pull
+forward low-cost wind and solar. The best case on delivered price requires
+\SI{58562}{\kilo\meter} of transmission, 26.4\,\% more than the central case and
+50\,\% more than the worst, with 10.3\,\% more transfer capability. For a system whose
+grid is already binding, the cheap path is the one that demands most of the planner.
 
-\paragraph{Lead times change when, not how much.} Transmission lead times rank last
-or second-to-last on terminal indicators, but the decomposition by transmission
-category shows why: the model builds much the same network either way, and the
-deferral surfaces as inter-zonal congestion rather than as a different system size.
-Terminal stocks are the wrong indicator for that effect, which is a limitation of
-our reporting and a clear direction for the next study.
+\emph{Lead times change when, not how much.} Transmission lead times rank last or
+second-to-last on terminal indicators because the model builds much the same network
+either way; the deferral surfaces as inter-zonal congestion rather than a different
+system size. Terminal stocks are the wrong indicator for that effect.
 
-\paragraph{The expansion is renewable without being told to be.} The central case
-reaches 84.9\,\% non-thermal capacity by 2050 under a profitability rule alone, with
-no target, mandate or carbon price. That a behavioural model and the
-optimisation-based Peruvian literature \citep{fiestas2024,delacruz2024} agree on the
-direction of the transition, having disagreed on almost everything methodological, is
-itself worth recording.
+\emph{The expansion is renewable without being told to be.} The central case reaches
+84.9\,\% non-thermal capacity by 2050 under a profitability rule alone, with no target,
+mandate or carbon price, agreeing in direction with the optimisation-based Peruvian
+literature \citep{fiestas2024,delacruz2024}.
 
-\subsection*{Policy implications}
+Peruvian planning attention is therefore not proportionate to the sensitivities. Effort
+on fuel-price exposure buys little; effort on long-horizon demand forecasting, on the
+institutional capacity to deliver transmission at the rate demand requires, and on
+moving the network trigger from confirmed to anticipated projects
+\citep{sauma2006,herding2024} buys a great deal.
 
-The practical reading is that Peruvian planning attention is not proportionate to
-the sensitivities. Effort devoted to fuel-price exposure buys little; effort devoted
-to (i) long-horizon demand forecasting, (ii) the institutional capacity to deliver
-transmission at the rate demand requires, and (iii) moving the network trigger from
-confirmed to anticipated generation projects \citep{sauma2006,herding2024}, buys a
-great deal. Restoring a predictable procurement signal matters for the same reason:
-the investment response in the model is to a sustained price signal, and the
-suspension of the auction mechanism removes it.
-
-\subsection*{Limitations}
-
-The ranking is conditional on the ranges in Table~\ref{tab:factors}; a wider delay
-distribution, such as the multi-year slippage documented for individual projects
-elsewhere, could change it. Storage and grid-enhancing technologies are disabled in
-every run reported here, so the substitution between flexibility and network is
+The ranking is conditional on the sampled ranges. Storage and grid-enhancing
+technologies are disabled in every run, so the flexibility--network substitution is
 absent and the transmission requirement of the high-demand case is, if anything,
-overstated. Retirements are exogenous, the dispatch uses one representative day per
-month, and the distributions are uniform ranges of admissibility rather than
-estimated densities. Each of these is documented with its consequence in the
-supplementary material.
-
-\subsection*{Further work}
-
-Three extensions follow directly. First, enabling storage and grid-enhancing
-technologies and re-running the same design would quantify how much network the
-flexibility options actually displace --- our results identify the Z2--Z3 corridor
-under high demand as where the gain would be largest. Second, replacing terminal
-stocks with congestion-hours, curtailment and unserved energy as reported indicators
-would capture the timing effect of lead times that our indicators miss. Third, the
-same design applied to Brazil and Chile with the same model structure would separate
-what is Peruvian from what is a property of longitudinal systems generally; the
-model and driver used here are already structured for that comparison.
+overstated; retirements are exogenous, the dispatch uses one representative day per
+month, and the distributions are ranges of admissibility rather than estimated
+densities. Each is documented with its consequence in the supplementary material.
+Three extensions follow: enabling storage and grid-enhancing technologies under the
+same design; replacing terminal stocks with congestion-hours, curtailment and unserved
+energy to capture the timing effect of lead times; and applying the design to Brazil
+and Chile with the same model structure, to separate what is Peruvian from what is a
+property of longitudinal systems generally.

@@ -54,12 +54,9 @@
 \title{Transmission Expansion and Reliability in Peru's Energy Transition:
        A System Dynamics Approach}
 
-%  \todo{Author list and order to be confirmed by the team before submission.}
-\author[eia]{Valentina Betancur}
-\author[eia]{Enrique Ángel}
-\author[eia]{Mariana Gonzalez}
-\author[eia]{Duvan Gomez}
 \author[eia]{Carolina Montoya}
+\author[eia]{Mariana Gonzalez}
+\author[eia]{Enrique Ángel}
 \author[eia]{Sebastián Zapata\corref{cor}}
 \ead{szapatar@unal.edu.co}
 \cortext[cor]{Corresponding author.}
@@ -68,31 +65,26 @@
                   country={Colombia}}
 
 \begin{abstract}
-Peru combines abundant solar, wind and hydro resources with a generation mix still
-built on hydropower and natural gas, a longitudinal grid that links three load
-zones in series, and a planning process in which generation and transmission
-projects advance on very different timescales. Which of these uncertainties
-actually governs the system's trajectory is not obvious, and it matters for where
-planning effort should go. We build a system dynamics model of the Peruvian power
-system, coupled to a congestion-aware dispatch layer, and simulate it monthly from
-2025 to 2050 over a designed experiment of 129 runs: a central case, eight
-one-at-a-time sensitivity runs, and 120 Latin-hypercube Monte Carlo samples of four
-uncertain drivers --- fuel prices, demand growth, and project lead times on the
-generation and the transmission side. The result is unambiguous and, we argue,
-policy-relevant: demand growth dominates every outcome, with Spearman rank
-correlations of 0.99 for transmission length, 0.97 for installed capacity and
-$-0.75$ for the average price, while the other three drivers stay below 0.27 in
-absolute value. A $\pm$20\,\% band on the 2050 demand level moves required
+Peru combines abundant renewable resources with a generation mix still built on
+hydropower and natural gas, a longitudinal grid linking three load zones in series,
+and generation and transmission projects that advance on very different timescales.
+Which of these uncertainties governs the system's trajectory determines where planning
+effort should go. We build a system dynamics model of the Peruvian power system,
+coupled to a congestion-aware dispatch layer, and simulate it monthly from 2025 to 2050
+over a designed experiment of 129 runs: a central case, eight one-at-a-time sensitivity
+runs, and 120 Latin-hypercube Monte Carlo samples of four uncertain drivers --- fuel
+prices, demand growth, and project lead times on the generation and the transmission
+side. Demand growth dominates every outcome, with
+Spearman rank correlations of 0.99 for transmission length, 0.97 for installed
+capacity and $-0.75$ for the average price, while the other three drivers stay below
+0.27 in absolute value. A $\pm$20\,\% band on the 2050 demand level moves required
 transmission by $-18.9$\,\% to $+23.8$\,\% and installed capacity by $-24.0$\,\% to
-$+29.3$\,\%. The price moves the opposite way to intuition: higher demand lowers
-the long-run average price, because it pulls forward low-cost renewable capacity
-that the central case defers. Reporting a central, a best and a worst case on a
-single declared metric --- the average delivered price --- shows that the
-least-cost outcome is also the most transmission-intensive, requiring 26\,\% more
-network than the central case. For Peru, the binding planning question is
-therefore not how to protect the system against fuel-price risk but whether the
-grid can be built fast enough to serve demand that is itself the main source of
-uncertainty.
+$+29.3$\,\%. The price moves against intuition: faster demand growth lowers the
+long-run average price, pulling forward low-cost renewable capacity the central case
+defers. The least-cost trajectory is consequently the most transmission-intensive,
+requiring 26\,\% more network. For Peru the binding planning question is therefore not
+how to hedge fuel-price risk but whether the grid can be delivered fast enough to serve
+demand growth that is itself the dominant unknown.
 \end{abstract}
 
 \begin{keyword}
@@ -125,6 +117,18 @@ this paper.
 
 \section*{Acknowledgements}
 \todo{Funding and acknowledgements to be completed by the team.}
+
+% Elsevier requires this section, with this exact title and wording, immediately
+% before the reference list whenever generative AI was used in preparing the
+% manuscript. Basic grammar and spelling checks would not require a declaration;
+% the assistance here went beyond that and is therefore declared.
+\section*{Declaration of generative AI and AI-assisted technologies in the
+manuscript preparation process}
+During the preparation of this work the authors used Claude (Anthropic) in order to
+draft and edit sections of the manuscript, to structure the experimental design and
+analysis code, and to prepare figures and tables from the simulation output. After
+using this tool, the authors reviewed and edited the content as needed and take full
+responsibility for the content of the publication.
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{refs}

@@ -1,332 +1,172 @@
 \section{Methodology}
 \label{sec:methodology}
 
-\subsection{Modelling approach}
+\subsection{Approach}
 \label{sec:method:approach}
 
-The question posed in Section~\ref{sec:introduction} --- which uncertainty governs
-the trajectory of the Peruvian system --- requires two things that are usually
-provided separately. It requires a model whose behaviour arises from the structure
-of the decision process rather than from an optimality assumption, because the
-phenomenon of interest is the mismatch between a decentralised generation market
-and a centrally planned network. And it requires a designed experiment over the
+The question requires two things usually provided separately: a model whose behaviour
+arises from the structure of the decision process rather than from an optimality
+assumption, because the phenomenon of interest is the mismatch between a decentralised
+generation market and a centrally planned network; and a designed experiment over the
 inputs, because a ranking cannot be read off a handful of named scenarios.
 
-We therefore combine a system dynamics simulation model with a Latin-hypercube
-designed experiment. The simulation runs monthly from January 2025 to January 2050
-(300 months, integration step \SI{0.25}{\month}), with an hourly dispatch
-represented inside each month by one representative day of 24 hourly levels. The
-experiment comprises 129 runs: one central case, two one-at-a-time runs per factor
-for the tornado diagram (eight), and 120 Monte Carlo samples in which all four
-factors vary simultaneously.
-
-The division of labour between the two is deliberate. The one-at-a-time runs
-isolate each factor against a fixed reference, which is what makes a tornado bar
-attributable to that factor and nothing else; their limitation is that they say
-nothing about interaction. The Monte Carlo ensemble moves everything at once, which
-is what the percentile envelopes and the rank correlations require; its limitation
-is that an individual factor's effect is no longer separable by construction and
-must be inferred statistically. Reporting both, and checking that they agree on the
-ranking, is stronger than either alone.
+We therefore combine a system dynamics model with a Latin-hypercube designed
+experiment. The simulation runs monthly from January 2025 to January 2050 (300 months,
+integration step \SI{0.25}{\month}), with an hourly dispatch represented inside each
+month by one representative day of 24 hourly levels. The experiment comprises 129 runs:
+one central case, two one-at-a-time runs per factor, and 120 Monte Carlo samples in
+which all four factors vary simultaneously. One-at-a-time runs isolate each factor
+against a fixed reference, which makes a tornado bar attributable but says nothing
+about interaction; the Monte Carlo ensemble moves everything at once, which the
+percentile envelopes and rank correlations require but leaves individual effects to be
+inferred statistically. Reporting both, and checking they agree, is stronger than
+either alone.
 
 \subsection{Model structure}
 \label{sec:method:structure}
 
-Figure~\ref{fig:model} shows the modules, the flows between them, and the
-parameters governing each. The notation used throughout is collected in
-Table~\ref{tab:notation}.
+Figure~\ref{fig:model} shows the modules, flows and governing parameters. The full
+equation set is in Supplementary Material~S1 and the complete parameter set, with the
+workbook cell of every value, in Supplementary Material~S2.
 
 \input{sections/fig_model_diagram}
 
-\begin{table}[tb]
-  \centering
-  \caption{Notation.}
-  \label{tab:notation}
-  \small
-  \begin{tabular}{@{}ll@{}}
-    \toprule
-    Symbol & Meaning \\
-    \midrule
-    $z \in \mathcal{Z}$ & zone, $|\mathcal{Z}|=3$ active of 6 represented \\
-    $g \in \mathcal{G}$ & generation technology, $|\mathcal{G}|=14$ per zone \\
-    $i \in \mathcal{I}$ & interconnection corridor, $|\mathcal{I}|=2$ active of 15 \\
-    $h \in \mathcal{H}$ & hour of the representative day, $|\mathcal{H}|=24$ \\
-    $f \in \mathcal{F}$ & forecast horizon, $\mathcal{F}=\{f_0,f_1,f_3,f_5,f_7,f_9\}$ years ahead \\
-    $t$ & time, months from January 2025 \\
-    \midrule
-    $K_{z,g}(t)$ & installed generation capacity [\si{\mega\watt}] \\
-    $Q^{\text{lic}}_{z,g}(t)$, $Q^{\text{con}}_{z,g}(t)$ & capacity in licensing / under construction [\si{\mega\watt}] \\
-    $T^{d}_{z}(t), T^{g}_{z}(t), T^{i}(t)$ & transmission for demand / generation / interconnection [\si{\kilo\meter}] \\
-    $P_i(t)$ & transfer capability of corridor $i$ [\si{\mega\watt}] \\
-    $D_{z,h,f}(t)$ & demand [\si{\mega\watt}] \\
-    $\lambda_{z,h}(t)$ & zonal price [\si{\USD\per\mega\watt\hour}] \\
-    \midrule
-    $\bar m$ & desired availability margin, $0.25$ \\
-    $\sigma$ & grid security margin, $0.30$ \\
-    $\Pi^{*}$ & profitability threshold, $1.2$ \\
-    $\theta$ & logit scale for technology allocation, $10^{8}$ \si{\USD} \\
-    $r$ & discount rate, $0.10$ \\
-    $\kappa_d, \kappa_g$ & grid intensity of demand and generation [\si{\kilo\meter\per\mega\watt}] \\
-    $F_{\min}, F_{\max}$ & minimum / maximum grid increment, $200$ / $500$ \si{\mega\watt} \\
-    $\alpha$ & share of a corridor's need that a GET may serve, $0.30$ \\
-    $c_t$ & transmission cost, $176.61$ \si{\USD\per\kilo\meter}-day \\
-    $\Delta_g, \Delta_t$ & lead-time factors, generation and transmission \\
-    $c_f, g_D$ & fuel-price and demand-growth factors \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\subsubsection{Generation: investment, pipeline and commissioning}
+\subsubsection{Generation: investment, pipeline, commissioning}
 \label{sec:method:gen}
 
-Generation capacity is a stock fed by a pipeline of projects that must pass through
-licensing and construction before they can be commissioned. Writing
-$N_{z,g}(t)$ for the capacity committed in month $t$:
-
-\begin{align}
-  \frac{\mathrm{d}Q^{\text{lic}}_{z,g}}{\mathrm{d}t}
-    &= N_{z,g}(t) - \mathcal{D}\!\left[N_{z,g}, L^{\text{lic}}_{z,g}\right](t),
-    \label{eq:lic}\\[2pt]
-  \frac{\mathrm{d}Q^{\text{con}}_{z,g}}{\mathrm{d}t}
-    &= \mathcal{D}\!\left[N_{z,g}, L^{\text{lic}}_{z,g}\right](t)
-     - \mathcal{D}\!\left[N_{z,g}, L^{\text{lic}}_{z,g} + L^{\text{con}}_{z,g}\right](t),
-    \label{eq:con}\\[2pt]
-  \frac{\mathrm{d}K_{z,g}}{\mathrm{d}t}
-    &= \min\!\Big\{
-         \mathcal{D}\!\left[N_{z,g}, L^{\text{tot}}_{z,g}\right](t),\;
-         \Phi_{z}(t)
-       \Big\},
-    \label{eq:cap}
-\end{align}
-
-where $\mathcal{D}[\cdot,L]$ is a material delay of duration $L$ and
-$L^{\text{tot}}_{z,g} = \big(L^{\text{lic}}_{z,g} + L^{\text{con}}_{z,g}\big)\,
-(1+\Delta_g)$ is the total lead time including the lead-time factor. The term
-$\Phi_{z}(t)$ in \eqref{eq:cap} is the headroom the delivered network allows in
-zone $z$: capacity that has finished construction cannot be commissioned until
-there is transmission to evacuate it. Equation~\eqref{eq:cap} is the first of the
-two feedbacks drawn dashed in Figure~\ref{fig:model}, and it is what couples the
+Generation capacity is a stock fed by a pipeline in which committed projects pass
+through licensing and construction before commissioning, with total lead time
+$(L^{\text{lic}}_{z,g} + L^{\text{con}}_{z,g})(1+\Delta_g)$ --- licensing at 24 months
+for every technology, construction from 24 months (PV) to 60 (reservoir hydro).
+Commissioning is bounded by the network actually delivered: capacity that has finished
+construction cannot enter until there is transmission to evacuate it. This is the first
+of the two feedbacks drawn dashed in Figure~\ref{fig:model}, and it is what couples the
 generation market to the network plan.
 
-Investment $N_{z,g}(t)$ is triggered by two distinct mechanisms. The first is
-adequacy: when the expected reserve margin at horizon $f$ falls below the desired
-margin $\bar m$, the shortfall is converted into a capacity requirement. The second
-is profitability: for each zone--technology pair the model computes a net present
-value over a 25-year economic life, assuming the plant is the only entrant and that
-current plus already-committed capacity persists, using CAPEX, fixed O\&M, fuel and
-firm-capacity (ENFICC) parameters from \citet{nrel2024}. Options whose profitability
-index exceeds $\Pi^{*}$ are admitted. Admitted options are then allocated across
-technologies by a logit share with scale $\theta$, which represents the dispersion
-of investor beliefs rather than a single optimising agent --- the point at which the
-model departs most clearly from a GEP formulation.
-
-Decisions are taken on \emph{expected} rather than current state. Expected capacity
-at horizons of 3, 5, 7 and 9 years includes capacity already in the pipeline, so
-investors and planners are assumed to know the construction times they face. This
-is the second dashed feedback in Figure~\ref{fig:model} and it is what prevents the
-model from over-investing in response to a deficit that is already being remedied.
+Investment is triggered two ways. Under adequacy, a shortfall of the expected reserve
+margin below the desired margin $\bar m$ becomes a capacity requirement. Under
+profitability, the model computes a net present value per zone--technology over a
+25-year life --- assuming the plant is the only entrant and that current plus committed
+capacity persists, with CAPEX, fixed O\&M, fuel and firm-capacity parameters from
+\citet{nrel2024} --- admits options above a threshold $\Pi^{*}$, and allocates them
+across technologies by a logit share with scale $\theta$. That share represents the
+dispersion of investor beliefs rather than a single optimising agent, and is the point
+at which the model departs most clearly from a GEP formulation. Decisions use
+\emph{expected} rather than current state: expected capacity at 3, 5, 7 and 9 years
+includes the pipeline, so investors know the construction times they face. This second
+feedback prevents over-investment against a deficit already being remedied.
 
 \subsubsection{Transmission: three categories, three triggers}
 \label{sec:method:trans}
 
-Transmission expansion is disaggregated into three categories because in this
-system they respond to different drivers and carry different lead times.
+Transmission expansion is disaggregated because the categories respond to different
+drivers and carry different lead times. Network \emph{for demand} follows zonal peak
+growth at an empirical intensity $\kappa_d$ and carries no construction delay, since
+the model does not represent intra-zonal networks. Network \emph{for generation}
+connects each new plant at intensity $\kappa_g$, triggered by the formal identification
+of a project at a planning horizon --- structurally \emph{reactive}, responding to
+confirmed rather than anticipated projects, which combined with transmission lead times
+exceeding generation lead times is a principal source of the bottleneck studied here.
+Network \emph{for interconnection} is triggered when a transfer implied by the dispatch
+exceeds delivered corridor capability, met by a grid-enhancing technology if the
+shortfall is at most a share $\alpha$ of current capability and by a new line
+otherwise, with increments bounded by $F_{\min}$ and $F_{\max}$ to represent lumpiness.
 
-\emph{Transmission for demand.} Peak demand growth in a zone requires network
-inside that zone, at an empirical intensity $\kappa_d$ [\si{\kilo\meter\per\mega\watt}]:
-$T^{d}_{z}(t) = \kappa_d\,\hat D_z(t)$, with $\hat D_z$ the zonal peak. This
-category carries no construction delay, because the model does not represent
-intra-zonal networks and a delay there would not affect inter-zonal operation.
+Transmission projects pass a four-stage pipeline --- tender, investor selection,
+licensing, construction --- totalling 97 months for lines and 73 for GETs, each stage
+scaled by $(1+\Delta_t)$. The 12-month planning cycle is deliberately not scaled: the
+model uses it as the period of a modulo operation setting when plans are revised.
 
-\emph{Transmission for generation.} Each new plant requires the network without
-which it could not reach commercial operation, at intensity $\kappa_g$. The trigger
-is the formal identification of a project at a planning horizon, which makes this
-category structurally \emph{reactive}: it responds to confirmed projects rather
-than anticipating them, and because transmission lead times exceed generation lead
-times, this is a principal source of the bottleneck the model is built to study.
-
-\emph{Transmission for interconnection.} Corridor reinforcement is driven by the
-dispatch. At each step the dispatch identifies zonal surpluses and deficits and the
-implied inter-zonal transfers; where the required transfer exceeds the delivered
-corridor capability $P_i(t)$, a reinforcement is triggered. If the shortfall is at
-most a share $\alpha$ of current capability it may be met by a grid-enhancing
-technology, which has a shorter pipeline; otherwise a new line is required.
-Increments are bounded below and above by $F_{\min}$ and $F_{\max}$, which
-represents the lumpiness of real reinforcements.
-
-Transmission projects pass through a four-stage pipeline --- public tender,
-investor selection, licensing, construction --- each stage scaled by $(1+\Delta_t)$.
-The 12-month planning cycle is deliberately \emph{not} scaled: the model uses it as
-the period of a modulo operation that sets when plans are revised, so scaling it
-would shift the planning calendar rather than delay projects.
-
-\subsubsection{Dispatch and prices}
+\subsubsection{Dispatch, prices and distributed resources}
 \label{sec:method:dispatch}
 
-Each month the model dispatches one representative day of 24 hourly levels by merit
-order. Each zone--technology pair is represented by one plant with an offer price
-and an hourly availability profile; reservoir hydro offers between a minimum and a
-scarcity price as a function of its storage level, which is what gives hydrology a
-price signal rather than merely an energy constraint. This is a reduced-form
-representation of reservoir operation: a full treatment would optimise releases
-against inflow forecasts and environmental constraints \citep{schaffer2026}, which
-matters more for operational studies than for the expansion question asked here.
-Two dispatches are computed:
-an unconstrained one, used to size the transfers the network would ideally carry
-and hence to detect reinforcement needs, and a constrained one that respects
-delivered corridor capability and yields congestion, zonal prices and the realised
-generation mix.
+Each month the model dispatches 24 hourly levels by merit order, one plant per
+zone--technology pair; reservoir hydro offers between a minimum and a scarcity price as
+a function of storage level, giving hydrology a price signal rather than merely an
+energy constraint. An unconstrained dispatch sizes the transfers the network would
+ideally carry and hence detects reinforcement needs; a constrained one respecting
+delivered corridor capability yields congestion, zonal prices and the realised mix. The
+reported price is the country average tariff over the final twelve months, averaged
+because it oscillates with hydrology. An external path solving the constrained dispatch
+with PyPSA \citep{brown2018} exists but is unused here.
 
-The delivered price reported in this paper is the country average electricity
-tariff, obtained from the zonal tariffs over the active zones. Because the price
-oscillates month to month with hydrology, the reported indicator is the mean over
-the final twelve months of the horizon rather than a single month; a single month
-is not representative of the state the system has reached.
-
-The model also supports an external dispatch path in which the constrained
-dispatch is solved as a linear program with PyPSA \citep{brown2018} through the
-Vensim DLL. All results reported here use the internal rule-based dispatch, for
-consistency with the central case against which the ensemble is compared.
-
-\subsubsection{Distributed resources and storage}
-\label{sec:method:der}
-
-Distributed PV adoption is represented as a diffusion process driven by the gap
-between the levelised cost of distributed generation and the retail tariff,
-moderated by a potential market and a social-influence term --- the structure used
-in the system dynamics adoption literature \citep{oyarzun2026} and consistent with
-the empirical role documented for prosumers in neighbouring systems
-\citep{antoniolli2022,wu2025}. Battery storage, where enabled, arbitrages between
-the cheapest and the most expensive hour of the representative day. Both reduce the
-residual demand seen by the dispatch and hence, indirectly, the inter-zonal
-transfers the network must support --- the substitution between storage and network
-quantified by \citet{sousa2024}.
-
-In the configuration used for every run reported here, system-level storage and
-grid-enhancing technologies are \emph{disabled} at the switch level, as in the
-shipped baseline, while distributed resources remain endogenous. PV-plus-storage
-\emph{technologies} can still be selected by the investment rule and do appear in
-the results. This is stated explicitly because it bounds the interpretation: the
-study quantifies uncertainty around the current policy configuration, not the
-effect of deploying storage or GETs.
+Distributed PV adoption is a diffusion process driven by the gap between the levelised
+cost of distributed generation and the retail tariff, moderated by a potential market
+and a social-influence term \citep{oyarzun2026,antoniolli2022,wu2025}. In every run
+reported here, system-level storage and grid-enhancing technologies are \emph{disabled}
+at the switch level, as in the shipped baseline, while distributed resources remain
+endogenous. This bounds the interpretation: the study quantifies uncertainty around the
+current policy configuration, not the effect of deploying storage or GETs.
 
 \subsection{Experimental design}
 \label{sec:method:design}
 
-\subsubsection{Factors and ranges}
-
-Four drivers are varied. They were selected because each is uncertain, each is
-outside the planner's direct control on the relevant horizon, and each has been
-argued in the literature to be a principal risk for a system with Peru's
-characteristics.
+Four drivers are varied (Table~\ref{tab:factors}), selected because each is uncertain,
+outside the planner's direct control on the relevant horizon, and argued in the
+literature to be a principal risk for a system with Peru's characteristics.
 
 \begin{table}[tb]
   \centering
-  \caption{Uncertain factors, ranges, and the model quantity each one scales.
-  Ranges are ranges of admissibility, not estimated distributions.}
+  \caption{Uncertain factors and ranges. Ranges are ranges of admissibility, not
+  estimated distributions.}
   \label{tab:factors}
   \small
-  \begin{tabular}{@{}llp{52mm}@{}}
+  \begin{tabular}{@{}llp{56mm}@{}}
     \toprule
     Factor & Range & Model quantity \\
     \midrule
-    Demand growth $g_D$ & $-20$ / $+20$\,\% &
-      multiplier on national demand, equal to 1 in January 2025 and
-      $1+g_D$ in January 2050, so only the growth path changes \\
-    Generation lead time $\Delta_g$ & $-20$ / $+20$\,\% &
+    Demand growth $g_D$ & $\pm20$\,\% &
+      multiplier on national demand, equal to 1 in January 2025 and $1+g_D$ in
+      January 2050, so only the growth path changes \\
+    Generation lead time $\Delta_g$ & $\pm20$\,\% &
       licensing plus construction time of every generation technology \\
-    Transmission lead time $\Delta_t$ & $-20$ / $+20$\,\% &
+    Transmission lead time $\Delta_t$ & $\pm20$\,\% &
       tender, investor selection, licensing and construction of lines and GETs \\
-    Fuel price $c_f$ & $-15$ / $+15$\,\% &
+    Fuel price $c_f$ & $\pm15$\,\% &
       fuel cost of every technology that burns fuel \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Two conventions require comment. First, the demand factor is a \emph{growth-path}
-factor, not a level shift: the multiplier is unity at the start of the horizon and
-reaches $1+g_D$ at the end, so January 2025 demand is untouched and only the rate of
-growth varies. This is the correct construction for an expansion study, where the
-quantity in question is how fast load grows, not how large it is today. Second,
-generation lead times are expressed relative to the \emph{workbook base case}
-rather than to the planned time. The Peruvian data set carries an ``other delays''
-fraction of $-0.2$, meaning realised delay is 80\,\% of planned; the factor is
-therefore applied as $(1+\text{base})(1+\text{change})-1$, giving $-0.36$ at the low
-end and $-0.04$ at the high end. This is the same convention used for transmission,
-which is what makes the two delay bars of the tornado comparable with each other.
+Two conventions matter. The demand factor is a \emph{growth-path} factor, not a level
+shift, so 2025 demand is untouched and only the rate of growth varies --- the correct
+construction for an expansion study. Generation lead times are expressed relative to
+the \emph{workbook base case} rather than the planned time: the Peruvian data set
+carries an ``other delays'' fraction of $-0.2$, so the factor enters as
+$(1+\text{base})(1+\text{change})-1$, giving $-0.36$ and $-0.04$ at the ends. This is
+the convention used for transmission, which makes the two delay bars comparable.
 
-Distributions are uniform and independent. There is no information that would
-justify another shape, and we are explicit that these are ranges of admissibility
-rather than estimated distributions: the ranking is robust to this choice, the
-absolute width of the percentile band is not.
-
-\subsubsection{Sampling}
-
-The Monte Carlo sample is a Latin hypercube \citep{mckay1992}: each factor's range
-is divided into as many equal intervals as there are samples, one value is drawn at
-random inside each interval, and the intervals of the factors are paired at random.
-This gives even marginal coverage with far fewer runs than simple random sampling,
-which matters when a single run costs several minutes of simulation. The design is
-generated from a fixed seed and written to disk before any simulation starts, so
-the experiment is fully specified independently of its execution.
-
-The realised design has a maximum absolute correlation between factors of $0.181$
-and a mean of $0.076$. Near-orthogonality matters because the rank correlations
-reported in Section~\ref{sec:results:ranking} are only attributable to a single
-factor when the factors are close to independent.
+Distributions are uniform and independent; there is no information justifying another
+shape. The Monte Carlo sample is a Latin hypercube \citep{mckay1992} generated from a
+fixed seed and written to disk before any simulation, so the experiment is specified
+independently of its execution. The realised design has a maximum absolute correlation
+between factors of $0.181$ and a mean of $0.076$; near-orthogonality is what makes the
+rank correlations in Section~\ref{sec:results:ranking} attributable to single factors.
 
 \subsubsection{Central, best and worst case}
 \label{sec:method:scenarios}
 
-We report three trajectories in detail, and the basis for choosing them is stated
-rather than left implicit.
-
-The \textbf{central case} is the system run with every factor at its reference
-value --- the configuration of the input data set as compiled from Peruvian sources.
-It is not a forecast and it is not the ensemble median; it is the reference against
-which every other run is measured, and it is reported because the tornado
-diagram's bars are defined as departures from it.
-
-The \textbf{best} and \textbf{worst} cases are selected from the 120 Monte Carlo
-runs on a single declared metric: the lowest and the highest country average
-electricity price, averaged over the final twelve months. A single declared
-criterion keeps the selection auditable, which is the point of reporting two runs
-in full; a weighted composite over several indicators would make the choice depend
-on weights that have no defensible basis. The consequence --- that ``best'' on
-price need not be best on every other indicator --- is not a defect of the
-criterion but a result, and we return to it in Section~\ref{sec:results:extremes}.
+The \textbf{central case} is the system run with every factor at its reference value,
+the configuration of the input data set as compiled from Peruvian sources. It is not a
+forecast and not the ensemble median: it is the reference against which every other run
+is measured, and the tornado bars are departures from it. The \textbf{best} and
+\textbf{worst} cases are selected from the 120 Monte Carlo runs on a single declared
+metric --- the lowest and highest country average price over the final twelve months
+--- which keeps the selection auditable, where a weighted composite would make it
+depend on weights with no defensible basis. That ``best'' on price need not be best on
+every indicator is a result, not a defect
+(Section~\ref{sec:results:extremes}).
 
 \subsection{Implementation and validation}
 \label{sec:method:validation}
 
-The model is implemented in Vensim DSS \citep{ventana2024} and executed through its
-DLL from a Python driver that applies each sample, runs the simulation, and
-extracts the reported variables. Each uncertain factor enters the model as a named
-constant multiplying the corresponding structural equation, with a default value
-that reproduces the unmodified model exactly. The complete driver, the design and
-the analysis code are available with the paper.
-
-Model confidence is established by the standard system dynamics battery
-\citep{barlas1996,oliva2004,richardson2024} rather than by a single fit statistic,
-which is the appropriate standard for a model used to explore structure rather than
-to forecast. The tests are reported in full in Supplementary
-Material~S3; in summary:
-
-\begin{itemize}
-  \item \emph{Structure verification.} Every feedback loop is matched to a
-        documented decision process and a source.
-  \item \emph{Parameter verification.} Every parameter is reported with its value,
-        unit, source and admissible range (Supplementary Material~S2).
-  \item \emph{Dimensional consistency.} The model passes Vensim's units check.
-  \item \emph{Extreme-condition tests.} Six tests, including zero demand growth,
-        zero construction time and unbounded lead times, each with the behaviour
-        that structural soundness requires.
-  \item \emph{Behaviour reproduction.} The central case reproduces the documented
-        reference trajectory of the Peruvian system, and the published four-factor
-        model reproduces the central case to \SI{63.85}{\giga\watt} and
-        \SI{46341.23}{\kilo\meter} at January 2050, matching the reference exactly.
-  \item \emph{Behaviour sensitivity.} The designed experiment of
-        Section~\ref{sec:method:design} is itself the sensitivity test, and the
-        convergence of the reported percentiles is checked in
-        Section~\ref{sec:results:ranking}.
-\end{itemize}
+The model is implemented in Vensim DSS \citep{ventana2024} and executed through its DLL
+from a Python driver, each uncertain factor entering as a named constant multiplying
+the corresponding structural equation with a default value that reproduces the
+unmodified model exactly. Model confidence is established by the standard system
+dynamics battery \citep{barlas1996,oliva2004,richardson2024} rather than a single fit
+statistic --- structure and parameter verification, dimensional consistency, six
+extreme-condition tests, behaviour reproduction and behaviour sensitivity --- reported
+in full in Supplementary Material~S3. Re-simulating the central case on the
+re-published four-knob model returns \SI{63.85}{\giga\watt} and
+\SI{46341.23}{\kilo\meter} at January 2050, matching the reference exactly.

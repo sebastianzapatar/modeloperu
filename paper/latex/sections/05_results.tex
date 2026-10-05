@@ -12,21 +12,21 @@ capability from \SI{1.60}{\giga\watt} to \SI{4.56}{\giga\watt}. The country aver
 electricity price falls from roughly \SI{210}{\USD\per\mega\watt\hour} in the late
 2020s to \SI{124.5}{\USD\per\mega\watt\hour} by 2050.
 
-The composition of that growth is the first result worth noting. Almost all of it
-is onshore wind and solar: wind rises from \SI{1.02}{\giga\watt} to
+The composition of that growth is the first result worth noting. Almost all of it is
+onshore wind and solar: wind rises from \SI{1.02}{\giga\watt} to
 \SI{34.83}{\giga\watt} and solar PV from \SI{0.48}{\giga\watt} to
-\SI{8.33}{\giga\watt}, while thermal capacity grows only from \SI{7.25}{\giga\watt}
-to \SI{9.65}{\giga\watt}. By 2050 non-thermal technologies hold 84.9\,\% of
-capacity, against 48.4\,\% at the start. The model reaches this outcome without any
-renewable target, mandate or carbon price: expansion is driven by the profitability
-rule alone. Thermal plant is not retired --- the model has no endogenous retirement
-flow --- but it stops being the marginal investment.
+\SI{8.33}{\giga\watt}, while thermal capacity grows only from \SI{7.25}{\giga\watt} to
+\SI{9.65}{\giga\watt}, so non-thermal technologies hold 84.9\,\% of capacity by 2050
+against 48.4\,\% at the start. The model reaches this without any renewable target,
+mandate or carbon price: expansion is driven by the profitability rule alone. Thermal
+plant is not retired --- the model has no endogenous retirement flow --- but it stops
+being the marginal investment.
 
-The price path is not monotone. It rises through the late 2020s, when demand grows
-against a capacity base that cannot yet respond, and falls thereafter as wind and
-solar enter. That shape is the classic capacity-cycle signature that system dynamics
-models of liberalised markets reproduce \citep{ford2001,arango2007,simshauser2010},
-and it appears here without being imposed.
+The price path is not monotone: it rises through the late 2020s, when demand grows
+against a capacity base that cannot yet respond, and falls thereafter as wind and solar
+enter. That is the classic capacity-cycle signature system dynamics models of
+liberalised markets reproduce \citep{ford2001,arango2007,simshauser2010}, and it
+appears here without being imposed.
 
 \subsection{Which uncertainty governs the system}
 \label{sec:results:ranking}
@@ -48,13 +48,11 @@ three of the four indicators.
   \label{fig:tornado}
 \end{figure*}
 
-Table~\ref{tab:tornado} gives the numbers. A $\pm$20\,\% band on the 2050 demand
-level moves required transmission from $-18.9$\,\% to $+23.8$\,\% and installed
-capacity from $-24.0$\,\% to $+29.3$\,\%; the swing attributable to demand is nine
-times that of generation lead times for transmission length, and five times for
-installed capacity. Fuel prices move installed capacity by at most 1.4\,\% and the
-average price by 0.4\,\%, in both directions --- the latter is not a sign error but
-a genuine non-monotonicity, discussed below.
+Table~\ref{tab:tornado} gives the numbers. A $\pm$20\,\% band on the 2050 demand level
+moves required transmission from $-18.9$\,\% to $+23.8$\,\% and installed capacity from
+$-24.0$\,\% to $+29.3$\,\%; the swing attributable to demand is nine times that of
+generation lead times for transmission length. Fuel prices move the average price by
+0.4\,\% in both directions --- not a sign error but a genuine non-monotonicity.
 
 \begin{table}[tb]
   \centering
@@ -94,13 +92,12 @@ a genuine non-monotonicity, discussed below.
   \end{tabular}
 \end{table}
 
-The one-at-a-time result is confirmed when all four factors move together.
-Table~\ref{tab:spearman} reports Spearman rank correlations over the 120 Monte Carlo
-runs. Demand growth reaches $0.985$ for transmission length and $0.973$ for
-installed capacity --- close to the maximum a rank correlation can attain --- while
-no other factor exceeds $0.27$ in absolute value on any indicator. The two methods
-agree on the ranking, which is the check that matters: a one-at-a-time result that
-survived only in the absence of interaction would not support the conclusion.
+The result is confirmed when all four factors move together
+(Table~\ref{tab:spearman}): demand growth reaches $0.985$ for transmission length and
+$0.973$ for installed capacity, close to the maximum a rank correlation can attain,
+while no other factor exceeds $0.27$ in absolute value. The two methods agree, which is
+the check that matters --- a one-at-a-time result surviving only in the absence of
+interaction would not support the conclusion.
 
 \begin{table}[tb]
   \centering
@@ -138,14 +135,13 @@ by a growth rate rather than by a level: small differences in the rate compound.
   \label{fig:bands}
 \end{figure*}
 
-By 2050 the ranges are substantial, as Table~\ref{tab:bands} reports: installed
-capacity spans \SIrange{52.3}{82.5}{\giga\watt} between the tenth and ninetieth
-percentile, a factor of 1.6, and required transmission spans
-\SIrange{39858}{57069}{\kilo\meter}. The price range is comparatively narrow,
-\SIrange{116.8}{129.4}{\USD\per\mega\watt\hour}, a spread of about 10\,\% around
-the median. The asymmetry between the two is itself informative: what these
-uncertainties move is \emph{how much infrastructure the country has to build}, far
-more than \emph{what electricity ends up costing}.
+By 2050 the ranges are substantial (Table~\ref{tab:bands}): installed capacity spans
+\SIrange{52.3}{82.5}{\giga\watt} between the tenth and ninetieth percentile, a factor
+of 1.6, and required transmission \SIrange{39858}{57069}{\kilo\meter}. The price range
+is comparatively narrow, \SIrange{116.8}{129.4}{\USD\per\mega\watt\hour}. That
+asymmetry is itself informative: what these uncertainties move is \emph{how much
+infrastructure the country has to build}, far more than \emph{what electricity ends up
+costing}.
 
 \begin{table}[tb]
   \centering
@@ -209,22 +205,18 @@ worst is \texttt{mc\_058}, in which it grows 16.5\,\% slower.
   \end{tabular}
 \end{table}
 
-This is the central empirical finding of the paper, and it runs against the
-intuition that higher demand means a more stressed and therefore more expensive
-system. In this model the opposite holds: faster demand growth \emph{lowers} the
-long-run average price. The mechanism is visible in the technology mix.
-Figures~\ref{fig:captech} and~\ref{fig:gentech} show installed capacity and annual
-generation by technology for the three cases. In the best case, onshore wind reaches
-\SI{52.05}{\giga\watt} against \SI{34.83}{\giga\watt} in the central case and
-\SI{25.47}{\giga\watt} in the worst; solar PV reaches \SI{11.51}{\giga\watt} against
-\SI{8.33} and \SI{5.24}{\giga\watt}. Faster demand growth sustains a price signal
-long enough for low-cost renewable capacity to clear the profitability threshold
-earlier and in greater volume; once that capacity is in place it depresses the
-marginal price. Slow demand growth, conversely, suppresses the investment signal,
-leaves the system leaning on existing thermal plant --- thermal generation is
-\SI{10.2}{\tera\watt\hour\per\year} in the worst case against
-\SI{5.6}{\tera\watt\hour\per\year} in the best --- and ends with a higher average
-price despite a smaller system.
+This is the central empirical finding, and it runs against the intuition that higher
+demand means a more stressed and therefore more expensive system. The mechanism is
+visible in the technology mix (Figures~\ref{fig:captech} and~\ref{fig:gentech}): in
+the best case onshore wind reaches \SI{52.05}{\giga\watt} against
+\SI{34.83}{\giga\watt} centrally and \SI{25.47}{\giga\watt} in the worst, and solar PV
+\SI{11.51}{\giga\watt} against \SI{8.33} and \SI{5.24}{\giga\watt}. Faster demand
+growth sustains a price signal long enough for low-cost renewable capacity to clear the
+profitability threshold earlier and in greater volume, and once in place that capacity
+depresses the marginal price. Slow demand growth suppresses the investment signal and
+leaves the system leaning on thermal plant --- \SI{10.2}{\tera\watt\hour\per\year} in
+the worst case against \SI{5.6}{\tera\watt\hour\per\year} in the best --- ending with a
+higher average price despite a smaller system.
 
 \begin{figure*}[tb]
   \centering
@@ -281,16 +273,12 @@ these ranges, lead times do not decide the outcome.
 
 Decomposing transmission by category (Figure~\ref{fig:transmission}) locates the
 effect. Network built for demand connection scales directly with peak demand and
-therefore inherits the demand factor's variance in full. Network built to connect
-generation follows the investment decision and inherits it indirectly. Inter-zonal
-corridor capability is the least sensitive of the three, and it is the only one
-where transmission lead time ranks second rather than fourth
-(Table~\ref{tab:tornado}): a longer pipeline defers reinforcements, which the series
-topology converts into persistent congestion rather than into a different final
-capacity.
-
-That asymmetry explains why transmission lead time barely registers in the
-aggregate indicators while remaining operationally important. The model builds
-essentially the same network in the end; what the lead time changes is \emph{when}
-it is available, and in a longitudinal system the cost of that timing shows up as
-congestion between zones rather than as a different system size.
+inherits the demand factor's variance in full; network built to connect generation
+follows the investment decision and inherits it indirectly. Inter-zonal corridor
+capability is the least sensitive of the three and the only one where transmission
+lead time ranks second rather than fourth (Table~\ref{tab:tornado}): a longer pipeline
+defers reinforcements, which the series topology converts into persistent congestion
+rather than a different final capacity. That is why transmission lead time barely
+registers in the aggregate indicators while remaining operationally important --- the
+model builds much the same network in the end, and what the lead time changes is
+\emph{when} it is available.
