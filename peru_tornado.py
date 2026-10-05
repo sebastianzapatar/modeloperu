@@ -874,33 +874,27 @@ def plot_tornado(tornado, out_dir):
         y = np.arange(len(t))
         base = t["base"].iloc[0]
         lo, hi = t["low_value"] - base, t["high_value"] - base
-        ax.barh(y, lo, height=0.55, color=PALETTE[2], label="Factor at low (−)",
-                edgecolor=SURFACE, linewidth=2)
-        ax.barh(y, hi, height=0.55, color=PALETTE[1], label="Factor at high (+)",
-                edgecolor=SURFACE, linewidth=2)
+        # The low and high bars of a factor sit side by side, low above high as in
+        # the legend. Drawn on the same line, the shorter bar hid part of the longer
+        # one whenever the response is not monotone in the factor.
+        ax.barh(y + 0.15, lo, height=0.3, color=PALETTE[2], label="Factor at low (−)",
+                edgecolor=SURFACE, linewidth=1)
+        ax.barh(y - 0.15, hi, height=0.3, color=PALETTE[1], label="Factor at high (+)",
+                edgecolor=SURFACE, linewidth=1)
         ax.axvline(0, color=INK, lw=1)
         ax.set_yticks(y, [f"{r.factor_label}\n({r.range_label})" for r in t.itertuples()])
         span = max(np.abs(np.r_[lo.values, hi.values]).max(), 1e-9)
         # Wide enough that a value label printed past the end of the longest bar
         # still lands inside the panel instead of over the factor names.
         ax.set_xlim(-span * 1.95, span * 1.95)
-        # Value labels sit just past the end of their bar. When a factor pushes the
-        # KPI the same way at both ends - which happens whenever the response is not
-        # monotone in the factor - the two bar ends are close together and the two
-        # labels would overlap, so the shorter bar's label is moved to the opposite
-        # side of the axis. The label text itself is never shortened: these are the
-        # numbers the paper quotes.
-        # Value labels sit just past the end of their bar. The two bars of a factor
-        # share a row, so whenever a factor pushes the KPI the same way at both ends
-        # - which happens as soon as the response is not monotone in the factor -
-        # the two ends are close together and the labels would print on top of each
-        # other. Separating them vertically, low above and high below, in the same
-        # order as the legend, removes the collision without shortening either
-        # number: these are the values the paper quotes.
+        # Value labels sit just past the end of their own bar, on that bar's half
+        # of the row, so the two labels of a factor never print over each other or
+        # over the other bar. The text is never shortened: these are the numbers the
+        # paper quotes.
         for yi, l, h, lv, hv in zip(y, lo, hi, t["low_value"], t["high_value"]):
-            for (d, v), dy in (((l, lv), 7), ((h, hv), -7)):
-                ax.annotate(f"{_fmt(v, unit)} ({d / base:+.1%})", (d, yi),
-                            xytext=(4 if d >= 0 else -4, dy), textcoords="offset points",
+            for (d, v), dy in (((l, lv), 0.15), ((h, hv), -0.15)):
+                ax.annotate(f"{_fmt(v, unit)} ({d / base:+.1%})", (d, yi + dy),
+                            xytext=(4 if d >= 0 else -4, 0), textcoords="offset points",
                             ha="left" if d >= 0 else "right", va="center",
                             fontsize=8, color=INK2)
         ax.set_title(f"{label}", loc="left")
@@ -938,7 +932,7 @@ def plot_scenarios(sc, out_dir):
         ax.annotate(f"{p.iloc[-1]:.1f}", (p.index[-1], p.iloc[-1]), xytext=(4, 0),
                     textcoords="offset points", va="center", fontsize=9, color=INK2)
     ax.set_title("Country average electricity price – annual mean [USD/MWh]", loc="left")
-    ax.legend(loc="upper left")
+    ax.legend(loc="upper right")
     ax.margins(x=0.02)
     ymax = max(_annual(sc[n]["data"]["price_parts"]).clip(lower=0).sum(axis=1).max() for n in names) * 1.05
     for i, n in enumerate(names):

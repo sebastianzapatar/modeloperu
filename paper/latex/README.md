@@ -74,17 +74,17 @@ build does not catch a key that is cited but missing once the `.bbl` is stale.
 
 - **The title page is a separate file**, as Elsevier requires. It carries the author
   details, ORCID placeholders, the word count and every declaration. Several fields are
-  marked `\todo`: postal address, ORCIDs, funding and the repository DOI.
+  marked `\todo`: postal address and ORCIDs.
 - **The AI declaration is included** in both `titlepage.tex` and `main.tex`, in the
   section Elsevier mandates (*Declaration of generative AI and AI-assisted technologies
   in the manuscript preparation process*), placed immediately before the references and
   using Elsevier's prescribed wording. Edit it if the description of what was used does
   not match what you want to state — it is your declaration, not ours.
-- **Notes are visible.** `\notestrue` in `main.tex` shows the red `\todo` markers;
-  set `\notesfalse` before submitting.
-- **Data availability** points at a GitHub URL that does not exist yet. Replace it
-  with the DOI of the archived release.
-- **Acknowledgements and funding** are empty.
+- **Notes are hidden.** `\notesfalse` in `main.tex` hides the red `\todo` markers;
+  set `\notestrue` to show them while drafting.
+- **Data availability** points at the public GitHub repository.
+- **No acknowledgements section** in `main.tex`; the CRediT statement is there. The
+  funding statement on the title page declares no specific grant.
 - Cross-references into the supplementary are written as plain text (`Supplementary
   Material~S3`) rather than `\ref`, because `\ref` cannot cross documents. If you
   renumber the supplementary sections, update those by hand — `grep -n

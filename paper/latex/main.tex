@@ -26,12 +26,12 @@
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 
-\sisetup{group-separator={,},group-minimum-digits=4,detect-weight=true}
+\sisetup{group-separator={,},group-minimum-digits=4,detect-weight=true,per-mode=symbol}
 \graphicspath{{figures/}}
 
 % Notes to co-authors. Set \notestrue to show them, \notesfalse before submission.
 \newif\ifnotes
-\notestrue
+\notesfalse
 \newcommand{\todo}[1]{\ifnotes\textcolor{red}{\textbf{[#1]}}\fi}
 
 % Shorthand for the model's own notation, so a symbol is defined in one place.
@@ -39,8 +39,9 @@
 \newcommand{\MW}{\si{\mega\watt}}
 \newcommand{\GW}{\si{\giga\watt}}
 \newcommand{\km}{\si{\kilo\meter}}
-\newcommand{\usdmwh}{\si{\USD\per\mega\watt\hour}}
+\newcommand{\usdmwh}{\si{\USD\per\MWh}}
 \DeclareSIUnit{\USD}{USD}
+\DeclareSIUnit{\MWh}{MWh}
 \DeclareSIUnit{\month}{month}
 \DeclareSIUnit{\year}{yr}
 \DeclareSIUnit{\tonne}{t}
@@ -102,21 +103,24 @@ Power system expansion planning \sep System dynamics \sep Transmission expansion
 \input{sections/06_discussion}
 \input{sections/07_conclusions}
 
-\section*{Data and code availability}
-The Vensim model, the complete input workbook, the experimental design, the
-simulation driver, the post-processing code and the commented notebook that
-regenerates every figure in this paper are openly available at
-\url{https://github.com/sebastianzapatar/modeloperu}.
-\todo{Archive a release on Zenodo and cite its DOI here before submission.}
-Nothing required to reproduce the results is available only on request.
+\section*{CRediT authorship contribution statement}
+\textbf{Carolina Montoya:} Data curation, Investigation, Methodology, Software.
+\textbf{Mariana Gonzalez:} Methodology, Software, Writing -- original draft.
+\textbf{Enrique Ángel:} Resources, Project administration, Writing -- review \&
+editing.
+\textbf{Sebastián Zapata:} Validation, Writing -- original draft.
 
 \section*{Declaration of competing interest}
 The authors declare that they have no known competing financial interests or
 personal relationships that could have appeared to influence the work reported in
 this paper.
 
-\section*{Acknowledgements}
-\todo{Funding and acknowledgements to be completed by the team.}
+\section*{Data and code availability}
+The Vensim model, the complete input workbook, the experimental design, the
+simulation driver, the post-processing code and the commented notebook that
+regenerates every figure in this paper are openly available at
+\url{https://github.com/sebastianzapatar/modeloperu}.
+Nothing required to reproduce the results is available only on request.
 
 % Elsevier requires this section, with this exact title and wording, immediately
 % before the reference list whenever generative AI was used in preparing the

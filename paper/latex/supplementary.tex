@@ -22,10 +22,11 @@
 \usepackage[hidelinks]{hyperref}
 
 \DeclareSIUnit{\USD}{USD}
+\DeclareSIUnit{\MWh}{MWh}
 \DeclareSIUnit{\month}{month}
 \DeclareSIUnit{\year}{yr}
 \DeclareSIUnit{\tonne}{t}
-\sisetup{group-separator={,},group-minimum-digits=4}
+\sisetup{group-separator={,},group-minimum-digits=4,per-mode=symbol}
 \graphicspath{{figures/}}
 
 \renewcommand{\thesection}{S\arabic{section}}
@@ -218,7 +219,7 @@ configuration of the distributed workbook; the experiment quantifies uncertainty
   \begin{tabular}{@{}lrrrrrr@{}}
     \toprule
     Technology & Constr. & Licens. & Other & FOM & Fuel & ENFICC \\
-               & [mo] & [mo] & [mo] & [\si{\USD\per\mega\watt}-yr] & [\si{\USD\per\mega\watt\hour}] & [--] \\
+               & [mo] & [mo] & [mo] & [\si{\USD\per\mega\watt}-yr] & [\si{\USD\per\MWh}] & [--] \\
     \midrule
     Biomass            & 36 & 24 & $-12.0$ & \num{163600} & 73.57 & 0.75 \\
     Wind, onshore      & 36 & 24 & $-12.0$ & \num{27873}  & 0     & 0.20 \\
@@ -236,7 +237,7 @@ configuration of the distributed workbook; the experiment quantifies uncertainty
   \caption{Generation technology parameters. ``Other'' is the base-case delay
   fraction expressed in months; it is negative because the Peruvian data set assumes
   realised lead times at 80\,\% of planned. Variable cost (not shown) is
-  \SI{5.24}{\USD\per\mega\watt\hour} for biomass, \SI{15.69}{} for Thermal 1 and
+  \SI{5.24}{\USD\per\MWh} for biomass, \SI{15.69}{} for Thermal 1 and
   \SI{2.49}{} for Thermal 2, zero elsewhere. CAPEX follows a declining monthly
   trajectory from \citet{nrel2024} and is given in full in the workbook
   (\texttt{Gen Inv.\ param.!C62:CH373}).}

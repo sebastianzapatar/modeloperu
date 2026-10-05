@@ -19,7 +19,7 @@ main lever on the quality of the answer, not a peripheral refinement.
 
 \subsection{The price result and what it does not say}
 
-The finding needs careful statement. It concerns a long-run \emph{average} under an
+The finding concerns a long-run \emph{average} under an
 investment rule responding to profitability: faster demand sustains the price signal
 long enough for low-cost capacity to clear the threshold earlier and in greater volume,
 and that capacity then depresses the marginal price. It does not say demand growth is
@@ -60,8 +60,8 @@ the ranges in Table~\ref{tab:factors}, as any sensitivity ranking must be.
 
 Peru's gas dependence is the feature most often identified as its principal
 vulnerability \citep{rudnick2019,enerdata2024,colinacalvo2024}, and our results qualify
-that view temporally rather than substantively. Fuel prices are the weakest driver on
-every indicator because the model's own trajectory removes the exposure: by 2050
+that view temporally rather than substantively. Fuel prices have the weakest rank
+correlation on every indicator because the model's own trajectory removes the exposure: by 2050
 thermal plant supplies \SI{7.5}{\tera\watt\hour\per\year} of
 \SI{148.8}{\tera\watt\hour\per\year}. Fuel-price risk is therefore a near-term exposure
 that the expansion path itself retires --- provided the path is delivered. If the
@@ -98,8 +98,8 @@ least-cost outcome is the most network-intensive, so under-building the grid for
 the cheap trajectory. \emph{Anticipatory network planning has measurable value},
 since the reactive trigger plus the lead-time asymmetry is a structural bottleneck
 rather than a parameter choice \citep{sauma2006,herding2024}. \emph{Demand forecasting
-deserves the effort currently given to fuel-price hedging}, given a ratio of roughly
-1:900 in rank correlation between the two. And \emph{restoring a predictable
+deserves the effort currently given to fuel-price hedging}, given rank correlations of
+0.75--0.99 for demand against at most 0.014 for fuel prices. And \emph{restoring a predictable
 procurement signal matters more than the price it clears}, since the profitability
 trigger responds to a sustained signal that the suspended auction mechanism removes
 \citep{campodonico2022,torres2026,delrio2026}.
@@ -121,7 +121,6 @@ from an artefact of one input assumption. Here it turned a plausible narrative -
 a gas-dependent system faces fuel-price risk --- into a measured ranking that
 contradicts it, for 129 mechanisable runs with the design fixed before execution.
 Reporting both one-at-a-time and all-factors-varying evidence is worth the redundancy,
-since their agreement is what makes the ranking defensible. The execution
-infrastructure --- resumable runs, an archived design, explicit checks that each run
-produced data --- was likewise not incidental: those checks caught silent failures that
-would otherwise have entered the results as missing data rather than as errors.
+since their agreement is what makes the ranking defensible. Explicit checks
+that each run produced data also caught silent failures that would otherwise have
+entered the results as missing data.

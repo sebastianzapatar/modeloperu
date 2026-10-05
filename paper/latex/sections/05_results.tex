@@ -9,8 +9,8 @@ its installed generation capacity between 2025 and 2050, from \SI{14.06}{\giga\w
 to \SI{63.85}{\giga\watt}, while the transmission network grows from
 \SI{16180}{\kilo\meter} to \SI{46341}{\kilo\meter} and inter-zonal transfer
 capability from \SI{1.60}{\giga\watt} to \SI{4.56}{\giga\watt}. The country average
-electricity price falls from roughly \SI{210}{\USD\per\mega\watt\hour} in the late
-2020s to \SI{124.5}{\USD\per\mega\watt\hour} by 2050.
+electricity price falls from roughly \SI{210}{\USD\per\MWh} in the late
+2020s to \SI{124.5}{\USD\per\MWh} by 2050.
 
 The composition of that growth is the first result worth noting. Almost all of it is
 onshore wind and solar: wind rises from \SI{1.02}{\giga\watt} to
@@ -32,9 +32,9 @@ appears here without being imposed.
 \label{sec:results:ranking}
 
 Figure~\ref{fig:tornado} reports the one-at-a-time sensitivity of each indicator. The
-result is unambiguous: demand growth dominates by roughly an order of magnitude over
-the next-ranked factor, and fuel prices --- the risk most often emphasised for a
-gas-dependent system --- are the weakest driver of three of the four indicators.
+result is unambiguous: demand growth has the largest swing on every indicator, nine
+times the next-ranked factor for transmission length, while fuel prices --- the risk most
+often emphasised for a gas-dependent system --- rank third or fourth on all four.
 
 \begin{figure*}[tb]
   \centering
@@ -82,7 +82,7 @@ generation lead times for transmission length. Fuel prices move the average pric
       & Fuel price           & $+4.9\%$  & $+0.6\%$  & \num{0.19}  \\
       & Generation lead time & $-2.1\%$  & $-4.3\%$  & \num{0.10}  \\
     \midrule
-    \multirow{4}{*}{\shortstack[l]{Average price\\ \si{\USD\per\mega\watt\hour}, base \num{124.5}}}
+    \multirow{4}{*}{\shortstack[l]{Average price\\ \si{\USD\per\MWh}, base \num{124.5}}}
       & Demand growth        & $+5.5\%$  & $-5.0\%$  & \num{13.09} \\
       & Generation lead time & $-4.7\%$  & $-0.3\%$  & \num{5.52}  \\
       & Transmission lead time & $-1.1\%$ & $+1.0\%$ & \num{2.63}  \\
@@ -107,7 +107,7 @@ interaction would not support the conclusion.
   \begin{tabular}{@{}lrrrr@{}}
     \toprule
     Factor & Transmission & Transfer & Capacity & Price \\
-           & [\si{\kilo\meter}] & [\si{\giga\watt}] & [\si{\giga\watt}] & [\si{\USD\per\mega\watt\hour}] \\
+           & [\si{\kilo\meter}] & [\si{\giga\watt}] & [\si{\giga\watt}] & [\si{\USD\per\MWh}] \\
     \midrule
     Demand growth          & $\mathbf{0.985}$ & $\mathbf{0.835}$ & $\mathbf{0.973}$ & $\mathbf{-0.752}$ \\
     Transmission lead time & $0.112$  & $-0.142$ & $0.121$  & $-0.081$ \\
@@ -136,7 +136,7 @@ a system whose divergence is driven by a growth rate rather than a level.
 By 2050 the ranges are substantial (Table~\ref{tab:bands}): installed capacity spans
 \SIrange{52.3}{82.5}{\giga\watt} between the tenth and ninetieth percentile, a factor
 of 1.6, and required transmission \SIrange{39858}{57069}{\kilo\meter}. The price range
-is comparatively narrow, \SIrange{116.8}{129.4}{\USD\per\mega\watt\hour}. That
+is comparatively narrow, \SIrange{116.8}{129.4}{\USD\per\MWh}. That
 asymmetry is itself informative: what these uncertainties move is \emph{how much
 infrastructure the country has to build}, far more than \emph{what electricity ends up
 costing}.
@@ -153,16 +153,16 @@ costing}.
     Transmission [\si{\kilo\meter}]            & \num{46341} & \num{39858} & \num{47788} & \num{57069} & \num{17211} \\
     Transfer capability [\si{\giga\watt}]      & \num{4.56}  & \num{4.23}  & \num{4.70}  & \num{5.29}  & \num{1.06}  \\
     Installed capacity [\si{\giga\watt}]       & \num{63.85} & \num{52.33} & \num{66.82} & \num{82.49} & \num{30.16} \\
-    Average price [\si{\USD\per\mega\watt\hour}] & \num{124.5} & \num{116.8} & \num{122.8} & \num{129.4} & \num{12.59} \\
+    Average price [\si{\USD\per\MWh}] & \num{124.5} & \num{116.8} & \num{122.8} & \num{129.4} & \num{12.59} \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-The central case sits close to the median on transmission and capacity but at the
-upper end of the price distribution. That is a consequence of the price
-non-monotonicity identified in Table~\ref{tab:tornado}: because both an increase
-and a decrease in several factors lower the price relative to the reference, the
-reference is near a local maximum.
+The central case sits close to the median on every indicator: slightly below it on
+transmission and capacity (38th--39th percentile) and slightly above it on price
+(59th). The price offset reflects the non-monotonicity in Table~\ref{tab:tornado}:
+both shorter and longer generation lead times lower the price relative to the
+reference.
 
 Supplementary Material~S4.2 reports the convergence of these
 percentiles as runs are added. P10, P50 and P90 are stable from roughly 75 runs
@@ -198,7 +198,7 @@ worst is \texttt{mc\_058}, in which it grows 16.5\,\% slower.
     Transmission [\si{\kilo\meter}]       & \num{46341} & \num{58562} $(+26.4\%)$ & \num{38927} $(-16.0\%)$ \\
     Transfer capability [\si{\giga\watt}] & \num{4.56}  & \num{5.03} $(+10.3\%)$  & \num{4.34} $(-4.8\%)$ \\
     Installed capacity [\si{\giga\watt}]  & \num{63.85} & \num{86.40} $(+35.3\%)$ & \num{49.18} $(-23.0\%)$ \\
-    Average price [\si{\USD\per\mega\watt\hour}] & \num{124.5} & \num{114.9} $(-7.6\%)$ & \num{135.6} $(+9.0\%)$ \\
+    Average price [\si{\USD\per\MWh}] & \num{124.5} & \num{114.9} $(-7.6\%)$ & \num{135.6} $(+9.0\%)$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -244,7 +244,12 @@ Figure~\ref{fig:transmission} the transmission requirement.
 \begin{figure*}[tb]
   \centering
   \includegraphics[width=\textwidth]{04_price_best_worst.png}
-  \caption{Country average electricity price for the central, best and worst case.}
+  \caption{Country average electricity price for the central, best and worst case.
+  Top: annual means; the end labels are the 2049 calendar-year mean and so differ
+  slightly from the final-twelve-month values in Table~\ref{tab:extremes}. Bottom:
+  price components, with other charges the remainder of the tariff after
+  generation, transmission and congestion; the congestion component stays below
+  \SI{0.2}{\USD\per\MWh} and is not visible at this scale.}
   \label{fig:price}
 \end{figure*}
 
@@ -261,10 +266,9 @@ generation lead times than the central case ($+9.8$\,\%) and the worst case has
 shorter ones ($-5.4$\,\%). This is not evidence that delays are beneficial; it is a
 consequence of their weakness relative to demand. Within the sampled ranges, the
 demand draw determines the outcome and the delay draw is close to noise, so the
-extreme runs on price carry essentially arbitrary delay values. Reporting this
-explicitly is more honest than selecting extreme runs that happen to tell a tidier
-story, and it is itself the clearest statement of the ranking: in this system, over
-these ranges, lead times do not decide the outcome.
+extreme runs on price carry essentially arbitrary delay values. That is itself the
+clearest statement of the ranking: over these ranges, lead times do not decide the
+outcome.
 
 \subsection{Where the uncertainty acts}
 \label{sec:results:where}
