@@ -72,8 +72,14 @@ build does not catch a key that is cited but missing once the `.bbl` is stale.
 
 ## Notes for the co-authors
 
-- **Author list and order are a placeholder** (`main.tex`, marked with `\todo`).
-  Confirm before submission.
+- **The title page is a separate file**, as Elsevier requires. It carries the author
+  details, ORCID placeholders, the word count and every declaration. Several fields are
+  marked `\todo`: postal address, ORCIDs, funding and the repository DOI.
+- **The AI declaration is included** in both `titlepage.tex` and `main.tex`, in the
+  section Elsevier mandates (*Declaration of generative AI and AI-assisted technologies
+  in the manuscript preparation process*), placed immediately before the references and
+  using Elsevier's prescribed wording. Edit it if the description of what was used does
+  not match what you want to state — it is your declaration, not ours.
 - **Notes are visible.** `\notestrue` in `main.tex` shows the red `\todo` markers;
   set `\notesfalse` before submitting.
 - **Data availability** points at a GitHub URL that does not exist yet. Replace it
