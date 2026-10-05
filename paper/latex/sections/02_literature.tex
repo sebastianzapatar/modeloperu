@@ -1,0 +1,198 @@
+\section{Literature review}
+\label{sec:literature}
+
+\subsection{Transmission planning under the energy transition}
+\label{sec:lit:planning}
+
+Transmission is the part of the power system where the energy transition is most
+visibly constrained. The resources that decarbonise a system are located where the
+wind blows and the sun shines, not where load is concentrated, so every increment
+of renewable capacity implies an increment of network; and the network is planned
+centrally, built slowly, and remunerated under rules written for a different
+generation fleet.
+
+The modelling response has largely been optimisation. Transmission expansion
+planning (TEP) treats a central planner maximising social welfare subject to
+network constraints, and the literature has extended it steadily to accommodate
+the transition: stochastic formulations that make renewable hosting capacity an
+explicit objective \citep{valipour2026}, multi-stage investment games for offshore
+grids \citep{tao2025}, and allocation models that coordinate renewable siting with
+inter-regional transfer capability \citep{zhao2026}. Joint generation and
+transmission formulations (GTEP) go further, and the coordination gain they
+identify is substantial: \citet{herding2024} find that coordinating the two
+reduces total investment by around 10\,\% and network expansion by up to 30\,\%
+when distributed generation is allowed to displace transfers. Reviews of the field
+\citep{gacitua2018,babatunde2020} document both its maturity and its central
+assumption --- a single rational agent optimising a well-posed objective.
+
+That assumption is where the difficulty lies for the question we ask. In a
+liberalised market the generation investor and the network planner are different
+agents, acting on different information, over different horizons, and the
+literature itself notes that optimisation struggles to represent the structural
+change and the behavioural response that policy induces \citep{dyner2001}. Recent
+work has begun to address the consequences rather than the optimum: how market
+design affects resilience under capacity expansion \citep{pan2026}, how the
+representation of hydropower in capacity expansion models changes the result
+\citep{oberg2026}, and how the cost of capital --- not resource quality or
+levelised cost --- determines which Latin American projects actually get financed
+\citep{delrio2026}. The last of these is directly relevant to Peru: it argues that
+the binding constraint in the region is institutional and financial rather than
+physical.
+
+\subsection{Infrastructure delays and power system reliability}
+\label{sec:lit:delays}
+
+A transmission project that is planned but late is, for the period of the delay,
+indistinguishable from a project that was never planned. The literature on this is
+smaller than the TEP literature but consistent in its findings.
+\citet{ritter2019} simulate delayed interconnector expansion in a high-renewable
+European system and show that the delay does not merely postpone benefits: it
+raises emissions and generation costs, because surplus renewable energy that cannot
+be moved is replaced by conventional generation elsewhere, altering the final
+composition of the mix. \citet{herrera2019} reach a structurally similar conclusion
+for northeast Brazil, where transmission constraints are shown to bound wind
+expansion directly. The mechanism in both cases is the same: generation investment
+responds to a connection opportunity that the network has not yet delivered.
+
+The causes of delay are well documented and largely non-technical. Right-of-way
+disputes, licensing, and local opposition recur across jurisdictions, and
+\citet{sun2026} quantify the last of these, showing that mitigating local
+opposition materially changes the feasible expansion path. \citet{boateng2026}
+generalise the point, identifying institutional-quality thresholds below which
+renewable deployment responds very differently to the same incentives. For a system
+such as Peru's, where the auction mechanism that structured renewable procurement
+has been suspended, these findings suggest that lead-time risk is better modelled
+as an institutional variable than as an engineering one.
+
+What is less settled is how much delay actually matters relative to the other
+things a planner does not know. Studies typically impose a delay scenario and
+report its consequences, which establishes that the effect exists without
+establishing its rank. That is the question this paper addresses.
+
+\subsection{Renewable integration and grid expansion in emerging economies}
+\label{sec:lit:emerging}
+
+Emerging economies face the integration problem with a different constraint set:
+capital is more expensive, institutions are thinner, and the grid is often radial
+or longitudinal rather than meshed. \citet{dasilva2025} analyse the regional
+efficiency of renewable expansion in Brazil and find performance varying sharply by
+region, which is consistent with network access rather than resource quality being
+the differentiator. \citet{antoniolli2022} document the role of residential rooftop
+prosumers in Brazil, a mechanism that reduces the inter-zonal transfers a
+longitudinal grid must support, and \citet{wu2025} reach a similar conclusion for
+community-scale rooftop solar and wind. \citet{sheng2026} make the link explicit by
+planning urban rooftop PV specifically to relieve grid-congestion-induced
+curtailment.
+
+The alternative to building network is to use the existing network harder. Grid-
+enhancing technologies --- dynamic line rating, power-flow control, advanced
+monitoring --- raise effective transfer capability without new right-of-way, and
+\citet{sadeghian2026} formalise dynamic thermal line rating under chance
+constraints for precisely this purpose. Their appeal in a system such as Peru's is
+obvious, since the constraint is corridor capacity rather than generation
+adequacy; their limitation is that remuneration frameworks for them are generally
+absent, so deployment lags technical feasibility.
+
+Storage plays the complementary role. \citet{sousa2024} quantify the substitution
+between storage and other flexibility resources in the Portuguese system, and
+\citet{liu2024} integrate multi-time-scale uncertainty and low-carbon retrofit into
+a regional capacity expansion scheme. Both make the same structural point: storage
+and network are partial substitutes, so the amount of transmission a system needs
+is not independent of how much flexibility it builds.
+
+\subsection{System dynamics in energy planning}
+\label{sec:lit:sd}
+
+System dynamics takes the opposite methodological stance to optimisation. Rather
+than solving for the best configuration, it simulates the configuration that the
+system's own feedback structure, accumulations and delays will produce
+\citep{forrester1997,sterman2000}. For electricity this has proved productive
+because the pathologies of interest --- investment cycles, capacity gaps, price
+spikes following construction lags --- are consequences of structure rather than of
+optimisation failure.
+
+The lineage is long. \citet{ford2001} explained the California capacity crisis as a
+construction-delay phenomenon; \citet{arango2007} simulated alternative regulation
+in the Colombian market; \citet{assili2008} examined capacity payments under
+long-term planning uncertainty, explicitly incorporating construction delays and
+demand growth; and \citet{simshauser2010} connected resource adequacy to investment
+uncertainty in a liberalised market. More recent work has extended the approach to
+full transition pathways: \citet{zapata2018} analysed the long-run effects of a
+100\,\% renewable target on the Colombian market, \citet{morcillo2018} examined
+demand-growth scenarios, and \citet{luo2024} built a hybrid system dynamics model
+of power-mix trajectories under carbon and capacity policy. \citet{lin2026} apply
+the method to the carbon border adjustment mechanism, and \citet{oyarzun2026}
+assess residential PV adoption policy with a system dynamics model --- an
+indication that the approach remains current in this journal's literature.
+
+Model confidence in system dynamics is established by a documented battery of tests
+rather than by a goodness-of-fit statistic \citep{barlas1996,oliva2004}, and recent
+methodological work has reconsidered what confidence means for models used
+exploratorily rather than predictively \citep{richardson2024}. We follow that
+protocol explicitly in Section~\ref{sec:methodology} and report it in full in the
+supplementary material, because a model used to rank uncertainties must first be
+shown to be structurally sound.
+
+Where the system dynamics energy literature is thinnest is in uncertainty
+quantification. Scenario analysis is near-universal; designed sampling of the input
+space is rare. Outside system dynamics the tools are standard --- Latin hypercube
+sampling \citep{mckay1992} and variance-based or regression-based global
+sensitivity measures \citep{homma1996} --- and they are used in power system work,
+for instance in \citeauthor{alvarez2026}'s \citeyearpar{alvarez2026} probabilistic
+assessment of the Spanish 2030 system by Monte Carlo analysis. Combining them with
+a feedback-rich simulation model is the methodological step this paper takes.
+
+\subsection{Latin American and Peruvian electricity system studies}
+\label{sec:lit:latam}
+
+Peru's restructuring has been studied as a reference case. \citet{rudnick2019}
+document a reform that delivered competition, lower wholesale prices and improved
+security of supply, while noting the accumulation of a high reserve margin and
+increasing fossil dependence; \citet{perezreyes2009} measure the productivity gains
+in distribution following the reforms, which were real but concentrated. More
+recent work has turned to the transition itself. \citet{fiestas2024} quantify the
+system-level impact of raising non-conventional renewables in the Peruvian matrix,
+finding reduced gas consumption, avoided emissions and lower system costs, and
+\citet{delacruz2024} reach compatible conclusions in long-range demand and
+emissions scenarios to 2050. On the network side, \citet{valdivia2024} report the
+congestion-analysis practice now used in Peruvian transmission planning, including
+$n-1$ contingency screening with demand, generation, fuel-price and weather
+projections.
+
+At regional scale, \citet{sauma2006} established the proactive-versus-reactive
+distinction in transmission valuation that frames much of the subsequent debate,
+and analyses of Andean interconnection have long found the links technically and
+economically feasible. The obstacle identified is political rather than
+engineering: regulatory sovereignty, not transfer capability
+\citep{guliev2022,sempertegui2017}. Peru's position in the regional comparison is
+genuinely ambiguous --- early policy innovation through auctions, substantial
+resources, and yet no consolidated decarbonisation strategy
+\citep{campodonico2022,reyes2025,colinacalvo2024,torres2026}.
+
+\subsection{Research gap and positioning}
+\label{sec:lit:gap}
+
+Three gaps follow from the above.
+
+First, the delay literature establishes that lead times matter but not how much
+they matter relative to other uncertainties. Delay is typically imposed as a
+scenario; it is rarely ranked against demand, fuel prices or cost assumptions in a
+common design.
+
+Second, the system dynamics energy literature rarely quantifies uncertainty with a
+designed experiment. The strength of the method is that it reproduces
+counter-intuitive behaviour arising from structure; the corresponding weakness, when
+it is used for policy, is that a small number of named scenarios cannot separate a
+structural result from an artefact of one input assumption.
+
+Third, Peru is under-represented. The existing Peruvian studies are either
+optimisation-based assessments of a renewable target
+\citep{fiestas2024,delacruz2024} or operational analyses of the network
+\citep{valdivia2024}. None represents the investment-and-delay feedback between
+generation and transmission that a longitudinal, gas-dependent system with
+suspended auctions would be expected to exhibit.
+
+This paper addresses all three: a system dynamics model of the Peruvian system with
+explicit generation and transmission pipelines, subjected to a Latin-hypercube
+designed experiment that ranks four uncertainties against each other on a common
+footing, with the validation battery and the full input set reported.

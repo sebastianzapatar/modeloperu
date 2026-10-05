@@ -1,0 +1,209 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Why transmission matters for Peru's energy transition}
+
+The results give the grid a specific and quantified role. Between 2025 and 2050 the
+central case requires the transmission network to grow from \SI{16180}{\kilo\meter}
+to \SI{46341}{\kilo\meter} --- a factor of 2.9 --- and the plausible range extends
+to \SI{57069}{\kilo\meter} at the ninetieth percentile. That requirement is not
+driven by a decarbonisation target; the model has none. It is driven by the
+locational mismatch described in Section~\ref{sec:peru:zones}: the capacity that the
+profitability rule selects is wind and solar, and those resources sit away from the
+centre zone that holds 60\,\% of demand.
+
+This is the point at which Peru's longitudinal topology stops being a descriptive
+detail. In a meshed system, a corridor constraint has alternatives; in a system
+where the south reaches the rest of the country only through the centre, it does
+not. \citet{herrera2019} show for northeast Brazil that transmission constraints
+bound wind expansion directly, and \citet{ritter2019} show for Europe that delayed
+interconnection changes the final generation mix rather than merely postponing it.
+Our results are consistent with both, with the qualification that in Peru the
+binding quantity is the \emph{rate} at which network can be delivered relative to
+the rate at which demand grows.
+
+\subsection{Demand growth as the governing uncertainty}
+
+That demand dominates is, in retrospect, structurally explicable. Demand enters the
+model at the root of every chain: it sets the adequacy trigger, it sets the residual
+demand that the dispatch clears and hence the price signal that drives the
+profitability trigger, and it sets the zonal peaks that drive demand-connection
+network directly. Fuel prices, by contrast, enter only at the dispatch, and in a
+system that ends up 85\,\% non-thermal in capacity terms, a cost shift on the
+shrinking thermal margin has little leverage. The rank correlation of $-0.014$ for
+fuel prices on the average price is not a modelling artefact; it is what one should
+expect once the marginal technology is no longer the one burning the fuel.
+
+The policy reading is uncomfortable, because demand growth is the one driver on the
+list that planning does not control and forecasting handles poorly. It is also the
+driver for which the model's own range ($\pm$20\,\% on the 2050 level) is arguably
+conservative for an emerging economy with incomplete electrification and potential
+industrial loads. Methods for long-horizon demand uncertainty
+\citep{lee2022,alvarez2026} are therefore not a peripheral refinement for Peruvian
+planning but the main lever on the quality of the answer.
+
+\subsection{The price result and what it does not say}
+
+The finding that faster demand growth lowers the long-run average price requires
+careful statement, because it is easy to over-read.
+
+It is a statement about a \emph{long-run average} under an investment rule that
+responds to profitability. Faster demand sustains the price signal long enough for
+low-cost renewable capacity to clear the threshold earlier and in greater volume;
+that capacity then depresses the marginal price. It is not a statement that demand
+growth is costless --- the same runs require 26\,\% more transmission and 35\,\%
+more generation capacity, and the model prices neither the capital at risk nor the
+land and social cost of that build-out. Nor is it a statement about short-run
+prices: Figure~\ref{fig:price} shows the high-demand case \emph{above} the others
+through the late 2020s, before the capacity it induces arrives.
+
+Three structural caveats bound it further. The model has no endogenous retirement,
+so thermal plant persists and the mix shifts by addition rather than by replacement.
+Storage and grid-enhancing technologies are disabled at the switch level in every
+run reported here, so the substitution between flexibility and network documented by
+\citet{sousa2024} and \citet{sadeghian2026} is absent; enabling them would plausibly
+reduce the transmission requirement of the high-demand case and weaken exactly the
+corollary we emphasise. And the dispatch uses one representative day per month,
+which under-represents sustained scarcity.
+
+\subsection{Infrastructure delays and long-term reliability}
+
+Lead times rank second and third in our design, well behind demand. We do not read
+this as evidence that delays are unimportant for Peru, and the distinction matters.
+
+What the result says is that, over a $\pm$20\,\% band around current practice,
+lead times do not change the \emph{size} of the system that gets built by 2050. What
+it does not say is that they do not change the system's condition along the way.
+Section~\ref{sec:results:where} shows the mechanism: longer transmission pipelines
+defer reinforcements, and in a series topology the deferral surfaces as congestion
+between zones rather than as a different terminal capacity. An indicator measured at
+January 2050 is poorly suited to capture that, and this is a limitation of our
+reporting choice as much as a property of the system. A study aimed specifically at
+reliability would need congestion-hours, curtailment and unserved energy as
+indicators rather than terminal stocks.
+
+There is also a range effect. We varied lead times by $\pm$20\,\% around the
+Peruvian base case, which is a plausible band for incremental administrative
+improvement. It is not the band relevant to institutional failure: the literature on
+delay causes --- right-of-way disputes, licensing, local opposition
+\citep{sun2026,boateng2026} --- describes multi-year slippage on individual projects,
+well outside $\pm$20\,\% of a planned stage. Our ranking is conditional on the
+ranges in Table~\ref{tab:factors}, as any sensitivity ranking must be.
+
+\subsection{Thermal dependence and fuel-price exposure}
+
+Peru's gas dependence is the feature most often identified as its principal
+vulnerability \citep{rudnick2019,enerdata2024,colinacalvo2024}, and our results
+qualify that view in a specific way. Fuel prices are the weakest of the four drivers
+on every indicator, with a swing of \SI{0.005}{\USD\per\mega\watt\hour} on the 2050
+average price --- effectively zero.
+
+The qualification is temporal, not substantive. The model's own trajectory removes
+the exposure: by 2050 thermal plant supplies \SI{7.5}{\tera\watt\hour\per\year} of
+\SI{148.8}{\tera\watt\hour\per\year} in the central case. Fuel-price risk is
+therefore a near-term exposure that the expansion path itself retires, provided the
+expansion path is delivered. If it is not --- if the network cannot be built at the
+rate the investment rule assumes --- the system remains thermal for longer and the
+exposure persists. Read that way, fuel-price risk in Peru is better understood as a
+\emph{consequence} of transmission delivery than as an independent risk to be hedged
+separately, which is a different policy prescription from the one usually drawn.
+
+\subsection{Renewable integration and transmission coordination}
+
+The central case reaches 84.9\,\% non-thermal capacity by 2050 with no renewable
+target, driven by profitability alone. That is a stronger statement about the
+competitiveness of Peruvian wind and solar than a target-constrained model could
+make, and it aligns with the optimisation-based findings of \citet{fiestas2024} and
+\citet{delacruz2024} from a different methodological direction --- which is worth
+noting, since agreement between an optimising and a behavioural model on the
+direction of the transition is more informative than either alone.
+
+Where the two diverge is on what it costs to get there. An optimisation model
+coordinates generation siting and network expansion by construction; our model does
+not, because the Peruvian institutional arrangement does not. Transmission for
+generation is triggered by \emph{confirmed} projects rather than anticipated ones
+(Section~\ref{sec:method:trans}), which is reactive by design, and transmission lead
+times exceed generation lead times. \citet{herding2024} quantify the prize for
+closing that gap --- around 10\,\% lower total investment and up to 30\,\% less
+network expansion under coordination --- and \citet{sauma2006} formalise the
+proactive-versus-reactive distinction that underlies it. Our results indicate that
+Peru is firmly on the reactive side, and that the cost of remaining there rises with
+demand growth.
+
+Complementary options would attack the same constraint from the demand side.
+Distributed generation reduces the inter-zonal transfers a longitudinal grid must
+support \citep{antoniolli2022,wu2025,sheng2026}, and grid-enhancing technologies
+raise the capability of existing corridors without new right-of-way
+\citep{sadeghian2026}. Both are represented in the model but disabled in this
+experiment; quantifying them for Peru is the obvious next study, and our results
+indicate where the gain would be largest --- the Z2--Z3 corridor under high demand.
+
+\subsection{Policy implications}
+
+Four implications follow, stated in the order our evidence supports them.
+
+\emph{Transmission delivery capacity is the planning variable to protect.} Demand
+growth governs the outcome and is outside the planner's control; what the planner
+controls is whether the network can keep pace. Since the least-cost outcome is also
+the most network-intensive, the risk is asymmetric: under-building the grid forecloses
+the cheap trajectory.
+
+\emph{Anticipatory network planning has a measurable value here.} The reactive
+trigger plus the lead-time asymmetry is a structural bottleneck, not a parameter
+choice. Moving the trigger from confirmed to anticipated projects is a regulatory
+decision with a quantifiable payoff \citep{sauma2006,herding2024}.
+
+\emph{Demand forecasting deserves the modelling effort that fuel-price hedging
+currently receives.} Given a 1:900 ratio in rank correlation between demand and fuel
+prices for transmission requirements, the allocation of analytical attention in
+Peruvian planning is not proportionate to the sensitivities.
+
+\emph{Restoring a predictable procurement signal matters more than the price it
+clears.} The profitability trigger in the model responds to a sustained price
+signal. The suspension of the auction mechanism \citep{campodonico2022,torres2026}
+removes exactly that, and \citet{delrio2026} show that in Latin America the cost of
+capital rather than resource quality determines what is financed --- a channel our
+model represents only through the discount rate.
+
+\subsection{Comparison with other Latin American systems}
+
+Peru's three-zone series topology is unusual in the region and it drives the result.
+Brazil's meshed system gives alternatives when a corridor binds, and the constraint
+appears as regional heterogeneity in deployment efficiency \citep{dasilva2025} or as
+curtailment \citep{herrera2019}, rather than as a single critical path. Chile's
+system is also longitudinal and its curtailment problem is well documented; the
+comparison with Peru is therefore the more instructive one, and \citet{reyes2025}
+note that Chile has moved considerably further from a comparable liberalised base.
+
+The common regional thread is institutional. \citet{guliev2022} and
+\citet{sempertegui2017} identify regulatory sovereignty rather than engineering as
+the barrier to Andean interconnection, and \citet{boateng2026} show institutional
+quality conditioning the response to otherwise identical incentives. Our finding
+that lead times matter less than demand should not be generalised to systems with
+weaker institutions or wider delay distributions than the $\pm$20\,\% band we
+sampled.
+
+\subsection{Methodological implications}
+
+Two points generalise beyond Peru.
+
+First, pairing a system dynamics model with a designed experiment changes what the
+model can claim. A small set of named scenarios shows what a model does; it cannot
+separate a structural result from an artefact of one input assumption. Here the
+designed experiment turned a plausible narrative --- that a gas-dependent system
+faces fuel-price risk --- into a measured ranking that contradicts it. The cost is
+modest: 129 runs, mechanisable, with the design fixed before execution.
+
+Second, reporting both one-at-a-time and all-factors-varying evidence is worth the
+redundancy. The two answer different questions and have complementary weaknesses,
+and their agreement (Tables~\ref{tab:tornado} and~\ref{tab:spearman}) is what makes
+the ranking defensible. Where they disagreed we would have to report it, and that
+disagreement would itself be a finding about interaction.
+
+We would add a third, more practical observation. The infrastructure of this study
+--- resumable execution, a design fixed and archived before any simulation ran, and
+explicit checks that each run actually produced data --- was not incidental. Several
+of those checks caught silent failures during execution that would otherwise have
+entered the results as missing data rather than as errors. For simulation
+experiments of this size, that machinery deserves to be part of the method rather
+than left to each author's practice.

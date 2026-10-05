@@ -1,0 +1,103 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Expansion planning rests on numbers nobody knows. What fuel will cost a decade
+out, how fast demand will grow, and how late projects will actually come online
+are all uncertain, and each of them is routinely handled by picking a central
+value and running a scenario around it. That practice is defensible only if the
+uncertainties are of comparable weight. When one of them dominates, effort spent
+hedging the others is effort misallocated, and the planning question changes from
+\emph{what might happen} to \emph{which unknown is worth managing}.
+
+Peru is a useful place to ask that question, for three reasons. First, the
+generation mix is still built on hydropower and natural gas, with non-conventional
+renewables at roughly 5\,\% of generation despite a resource base that modelling
+work repeatedly finds economically attractive \citep{fiestas2024,delacruz2024}.
+Second, the transmission network is longitudinal: three load zones strung in
+series along the coast and the Andes, with the best wind and solar resources
+systematically distant from the demand they would serve \citep{valdivia2024}.
+Third, the institutional record is mixed in an instructive way. The 1992
+restructuring produced genuine competition and improved security of supply
+\citep{rudnick2019,perezreyes2009}, and Peru was among the regional pioneers of
+technology-specific renewable auctions; but the auction mechanism has since been
+suspended, leaving developers without a reliable off-take signal, and new
+investment in both generation and transmission slowed once the initial wave of
+privatisation ran its course. The country therefore holds, simultaneously, a
+strong resource endowment, a grid that was not built for it, and a planning
+process whose delivery times are themselves uncertain.
+
+Most of the modelling literature addresses this kind of problem with optimisation.
+Generation expansion planning, transmission expansion planning and their joint
+formulation are mature fields with a large and still-growing body of work
+\citep{gacitua2018,babatunde2020,herding2024,tao2025,valipour2026}. These models
+are indispensable for identifying what an efficient expansion path would look
+like, but they answer a normative question --- what \emph{should} be built ---
+under an assumption of perfect rationality and a single optimising agent. The
+system they describe is not the system that exists. In a liberalised market,
+generation investment is decentralised and driven by expected profitability,
+transmission is planned centrally and built on a different and longer clock, and
+the gap between the two is bridged by neither \citep{dyner2001,herrera2019}. It is
+precisely in that gap that delays, congestion and stranded capacity appear.
+
+System dynamics was developed for exactly this situation: feedback, accumulation
+and delay \citep{forrester1997,sterman2000}. Applied to electricity it has a long
+record of reproducing the investment cycles, capacity gaps and price swings that
+optimisation abstracts away \citep{ford2001,arango2007,assili2008,zapata2018}, and
+recent work continues to use it to evaluate policy in liberalised markets
+\citep{luo2024,lin2026,oyarzun2026}. What it is less often asked to do is to
+quantify, rather than illustrate, the relative weight of the uncertainties that
+drive it. A single simulation --- or a handful of named scenarios --- shows what
+the model does; it does not show which input the answer actually depends on.
+
+This paper closes that gap for Peru. We build a system dynamics model of the
+Peruvian power system, coupled to a congestion-aware dispatch layer, with an
+explicit six-stage regulatory and construction pipeline for both generation and
+transmission projects. We then subject it to a designed experiment of 129
+simulations: a central case, eight one-at-a-time runs that isolate each driver,
+and 120 Latin-hypercube Monte Carlo samples in which four drivers move at once ---
+fuel prices, demand growth, and project lead times on the generation and on the
+transmission side. Every run covers 2025 to 2050 at a monthly step with an hourly
+dispatch inside each month.
+
+The contribution is threefold:
+
+\begin{enumerate}
+  \item \textbf{A quantified ranking of the uncertainties, not an illustration of
+        them.} We report standardised one-at-a-time sensitivities and rank
+        correlations over a Latin-hypercube ensemble, together with a convergence
+        check on the reported percentiles. The ranking is unambiguous: demand
+        growth dominates every indicator we track, and the other three drivers ---
+        including fuel prices, the one most often treated as the central risk for a
+        gas-dependent system --- are an order of magnitude weaker.
+  \item \textbf{A transmission-explicit representation of a longitudinal system.}
+        Expansion is disaggregated into grid built for demand, grid built to
+        connect new generation, and grid built to interconnect zones, each with its
+        own trigger and its own lead time. This matters in Peru because the three
+        categories respond to different drivers and only the third is constrained
+        by the series topology.
+  \item \textbf{A reproducible artefact.} The model, the input workbook, the
+        experimental design, the driver, the analysis code and a commented notebook
+        that regenerates every figure are openly available. The validation battery,
+        the full parameter set and the extended results are given as supplementary
+        material.
+\end{enumerate}
+
+The central empirical result is counter-intuitive in a way that bears directly on
+policy. Higher demand growth does not raise the long-run average price in this
+system; it lowers it, because it pulls forward low-cost renewable capacity that
+the central case defers. The least-cost trajectory is consequently also the most
+transmission-intensive, requiring about a quarter more network than the central
+case. For a system whose grid is already the binding constraint, that is not a
+comfortable finding, and it reframes the planning problem: the risk to manage in
+Peru is not fuel-price exposure but whether transmission can be delivered fast
+enough to serve demand growth that is itself the dominant unknown.
+
+The remainder of the paper is organised as follows. Section~\ref{sec:literature}
+reviews the relevant literature on transmission planning under energy transition,
+infrastructure delays, renewable integration in emerging economies, and system
+dynamics in energy planning, and positions the paper against it.
+Section~\ref{sec:peru} describes the Peruvian power system.
+Section~\ref{sec:methodology} sets out the model, the experimental design and the
+validation protocol. Section~\ref{sec:results} reports the central, best and worst
+cases and the uncertainty analysis. Section~\ref{sec:discussion} discusses the
+implications and Section~\ref{sec:conclusions} concludes.

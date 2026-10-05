@@ -1,0 +1,132 @@
+%==============================================================================
+%  Transmission Expansion and Reliability in Peru's Energy Transition:
+%  A System Dynamics Approach
+%
+%  Target journal: Renewable Energy (Elsevier).
+%  Class: elsarticle. Build with:  latexmk -pdf main.tex
+%
+%  Structure: this file carries only the preamble, front matter and the
+%  \input list. Each section lives in sections/ so that co-authors can work on
+%  one section without colliding in the others.
+%==============================================================================
+\documentclass[preprint,3p,times,11pt]{elsarticle}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc,shapes.geometric}
+\usepackage[section]{placeins}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\sisetup{group-separator={,},group-minimum-digits=4,detect-weight=true}
+\graphicspath{{figures/}}
+
+% Notes to co-authors. Set \notestrue to show them, \notesfalse before submission.
+\newif\ifnotes
+\notestrue
+\newcommand{\todo}[1]{\ifnotes\textcolor{red}{\textbf{[#1]}}\fi}
+
+% Shorthand for the model's own notation, so a symbol is defined in one place.
+\newcommand{\ztech}{\ensuremath{(z,g)}}
+\newcommand{\MW}{\si{\mega\watt}}
+\newcommand{\GW}{\si{\giga\watt}}
+\newcommand{\km}{\si{\kilo\meter}}
+\newcommand{\usdmwh}{\si{\USD\per\mega\watt\hour}}
+\DeclareSIUnit{\USD}{USD}
+\DeclareSIUnit{\month}{month}
+\DeclareSIUnit{\year}{yr}
+\DeclareSIUnit{\tonne}{t}
+
+\journal{Renewable Energy}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Transmission Expansion and Reliability in Peru's Energy Transition:
+       A System Dynamics Approach}
+
+%  \todo{Author list and order to be confirmed by the team before submission.}
+\author[eia]{Valentina Betancur}
+\author[eia]{Enrique Ángel}
+\author[eia]{Mariana Gonzalez}
+\author[eia]{Duvan Gomez}
+\author[eia]{Carolina Montoya}
+\author[eia]{Sebastián Zapata\corref{cor}}
+\ead{szapatar@unal.edu.co}
+\cortext[cor]{Corresponding author.}
+\affiliation[eia]{organization={Universidad EIA},
+                  city={Envigado},
+                  country={Colombia}}
+
+\begin{abstract}
+Peru combines abundant solar, wind and hydro resources with a generation mix still
+built on hydropower and natural gas, a longitudinal grid that links three load
+zones in series, and a planning process in which generation and transmission
+projects advance on very different timescales. Which of these uncertainties
+actually governs the system's trajectory is not obvious, and it matters for where
+planning effort should go. We build a system dynamics model of the Peruvian power
+system, coupled to a congestion-aware dispatch layer, and simulate it monthly from
+2025 to 2050 over a designed experiment of 129 runs: a central case, eight
+one-at-a-time sensitivity runs, and 120 Latin-hypercube Monte Carlo samples of four
+uncertain drivers --- fuel prices, demand growth, and project lead times on the
+generation and the transmission side. The result is unambiguous and, we argue,
+policy-relevant: demand growth dominates every outcome, with Spearman rank
+correlations of 0.99 for transmission length, 0.97 for installed capacity and
+$-0.75$ for the average price, while the other three drivers stay below 0.27 in
+absolute value. A $\pm$20\,\% band on the 2050 demand level moves required
+transmission by $-18.9$\,\% to $+23.8$\,\% and installed capacity by $-24.0$\,\% to
+$+29.3$\,\%. The price moves the opposite way to intuition: higher demand lowers
+the long-run average price, because it pulls forward low-cost renewable capacity
+that the central case defers. Reporting a central, a best and a worst case on a
+single declared metric --- the average delivered price --- shows that the
+least-cost outcome is also the most transmission-intensive, requiring 26\,\% more
+network than the central case. For Peru, the binding planning question is
+therefore not how to protect the system against fuel-price risk but whether the
+grid can be built fast enough to serve demand that is itself the main source of
+uncertainty.
+\end{abstract}
+
+\begin{keyword}
+Power system expansion planning \sep System dynamics \sep Transmission expansion
+\sep Uncertainty analysis \sep Latin hypercube sampling \sep Peru
+\end{keyword}
+
+\end{frontmatter}
+
+\input{sections/01_introduction}
+\input{sections/02_literature}
+\input{sections/03_peru}
+\input{sections/04_methodology}
+\input{sections/05_results}
+\input{sections/06_discussion}
+\input{sections/07_conclusions}
+
+\section*{Data and code availability}
+The Vensim model, the complete input workbook, the experimental design, the
+simulation driver, the post-processing code and the commented notebook that
+regenerates every figure in this paper are openly available at
+\url{https://github.com/sebastianzapatar/peru-expansion-uncertainty}.
+\todo{Replace with the DOI of the archived release before submission.}
+Nothing required to reproduce the results is available only on request.
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or
+personal relationships that could have appeared to influence the work reported in
+this paper.
+
+\section*{Acknowledgements}
+\todo{Funding and acknowledgements to be completed by the team.}
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{refs}
+
+\end{document}

@@ -1,0 +1,296 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{Central case: the trajectory the reference data imply}
+\label{sec:results:base}
+
+Under the reference values of every factor, the Peruvian system roughly quadruples
+its installed generation capacity between 2025 and 2050, from \SI{14.06}{\giga\watt}
+to \SI{63.85}{\giga\watt}, while the transmission network grows from
+\SI{16180}{\kilo\meter} to \SI{46341}{\kilo\meter} and inter-zonal transfer
+capability from \SI{1.60}{\giga\watt} to \SI{4.56}{\giga\watt}. The country average
+electricity price falls from roughly \SI{210}{\USD\per\mega\watt\hour} in the late
+2020s to \SI{124.5}{\USD\per\mega\watt\hour} by 2050.
+
+The composition of that growth is the first result worth noting. Almost all of it
+is onshore wind and solar: wind rises from \SI{1.02}{\giga\watt} to
+\SI{34.83}{\giga\watt} and solar PV from \SI{0.48}{\giga\watt} to
+\SI{8.33}{\giga\watt}, while thermal capacity grows only from \SI{7.25}{\giga\watt}
+to \SI{9.65}{\giga\watt}. By 2050 non-thermal technologies hold 84.9\,\% of
+capacity, against 48.4\,\% at the start. The model reaches this outcome without any
+renewable target, mandate or carbon price: expansion is driven by the profitability
+rule alone. Thermal plant is not retired --- the model has no endogenous retirement
+flow --- but it stops being the marginal investment.
+
+The price path is not monotone. It rises through the late 2020s, when demand grows
+against a capacity base that cannot yet respond, and falls thereafter as wind and
+solar enter. That shape is the classic capacity-cycle signature that system dynamics
+models of liberalised markets reproduce \citep{ford2001,arango2007,simshauser2010},
+and it appears here without being imposed.
+
+\subsection{Which uncertainty governs the system}
+\label{sec:results:ranking}
+
+Figure~\ref{fig:tornado} reports the one-at-a-time sensitivity of each indicator to
+each factor. The result is unambiguous. Demand growth dominates every indicator by
+roughly an order of magnitude over the next-ranked factor, and fuel prices --- the
+risk most often emphasised for a gas-dependent system --- are the weakest driver of
+three of the four indicators.
+
+\begin{figure*}[tb]
+  \centering
+  \includegraphics[width=\textwidth]{03_tornado.png}
+  \caption{Tornado diagram. For each indicator, the bars show the change from the
+  central case when one factor is set to the low and the high end of its range with
+  the other three held at their reference value. Factors are ordered by swing,
+  $|\text{high}-\text{low}|$. Values at January 2050; the price is the mean of the
+  final twelve months.}
+  \label{fig:tornado}
+\end{figure*}
+
+Table~\ref{tab:tornado} gives the numbers. A $\pm$20\,\% band on the 2050 demand
+level moves required transmission from $-18.9$\,\% to $+23.8$\,\% and installed
+capacity from $-24.0$\,\% to $+29.3$\,\%; the swing attributable to demand is nine
+times that of generation lead times for transmission length, and five times for
+installed capacity. Fuel prices move installed capacity by at most 1.4\,\% and the
+average price by 0.4\,\%, in both directions --- the latter is not a sign error but
+a genuine non-monotonicity, discussed below.
+
+\begin{table}[tb]
+  \centering
+  \caption{One-at-a-time sensitivity. Change from the central case at January 2050
+  with one factor at each end of its range. Factors ordered by swing within each
+  indicator.}
+  \label{tab:tornado}
+  \scriptsize
+  \begin{tabular}{@{}llrrr@{}}
+    \toprule
+    Indicator & Factor & Low & High & Swing \\
+    \midrule
+    \multirow{4}{*}{\shortstack[l]{Transmission\\ \si{\kilo\meter}, base \num{46341}}}
+      & Demand growth        & $-18.9\%$ & $+23.8\%$ & \num{19794} \\
+      & Generation lead time & $+6.4\%$  & $+1.7\%$  & \num{2210}  \\
+      & Fuel price           & $+0.2\%$  & $+1.8\%$  & \num{729}   \\
+      & Transmission lead time & $+1.8\%$ & $+0.7\%$ & \num{487}   \\
+    \midrule
+    \multirow{4}{*}{\shortstack[l]{Installed capacity\\ \si{\giga\watt}, base \num{63.85}}}
+      & Demand growth        & $-24.0\%$ & $+29.3\%$ & \num{34.08} \\
+      & Generation lead time & $+10.6\%$ & $+1.1\%$  & \num{6.09}  \\
+      & Fuel price           & $+0.4\%$  & $+1.4\%$  & \num{0.64}  \\
+      & Transmission lead time & $+1.4\%$ & $+1.2\%$ & \num{0.08}  \\
+    \midrule
+    \multirow{4}{*}{\shortstack[l]{Transfer capability\\ \si{\giga\watt}, base \num{4.56}}}
+      & Demand growth        & $-8.4\%$  & $+15.4\%$ & \num{1.08}  \\
+      & Transmission lead time & $+5.2\%$ & $-4.9\%$ & \num{0.46}  \\
+      & Fuel price           & $+4.9\%$  & $+0.6\%$  & \num{0.19}  \\
+      & Generation lead time & $-2.1\%$  & $-4.3\%$  & \num{0.10}  \\
+    \midrule
+    \multirow{4}{*}{\shortstack[l]{Average price\\ \si{\USD\per\mega\watt\hour}, base \num{124.5}}}
+      & Demand growth        & $+5.5\%$  & $-5.0\%$  & \num{13.09} \\
+      & Generation lead time & $-4.7\%$  & $-0.3\%$  & \num{5.52}  \\
+      & Transmission lead time & $-1.1\%$ & $+1.0\%$ & \num{2.63}  \\
+      & Fuel price           & $+0.4\%$  & $+0.4\%$  & \num{0.01}  \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The one-at-a-time result is confirmed when all four factors move together.
+Table~\ref{tab:spearman} reports Spearman rank correlations over the 120 Monte Carlo
+runs. Demand growth reaches $0.985$ for transmission length and $0.973$ for
+installed capacity --- close to the maximum a rank correlation can attain --- while
+no other factor exceeds $0.27$ in absolute value on any indicator. The two methods
+agree on the ranking, which is the check that matters: a one-at-a-time result that
+survived only in the absence of interaction would not support the conclusion.
+
+\begin{table}[tb]
+  \centering
+  \caption{Spearman rank correlation between each factor and each indicator over the
+  120 Monte Carlo runs, in which all four factors vary simultaneously.}
+  \label{tab:spearman}
+  \small
+  \begin{tabular}{@{}lrrrr@{}}
+    \toprule
+    Factor & Transmission & Transfer & Capacity & Price \\
+           & [\si{\kilo\meter}] & [\si{\giga\watt}] & [\si{\giga\watt}] & [\si{\USD\per\mega\watt\hour}] \\
+    \midrule
+    Demand growth          & $\mathbf{0.985}$ & $\mathbf{0.835}$ & $\mathbf{0.973}$ & $\mathbf{-0.752}$ \\
+    Transmission lead time & $0.112$  & $-0.142$ & $0.121$  & $-0.081$ \\
+    Generation lead time   & $0.044$  & $0.081$  & $0.053$  & $-0.264$ \\
+    Fuel price             & $-0.008$ & $-0.013$ & $-0.014$ & $-0.014$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{How wide the range of outcomes remains}
+\label{sec:results:bands}
+
+Figure~\ref{fig:bands} shows the P10--P90 envelope of each indicator over the whole
+horizon. The envelopes are narrow until the early 2030s and widen steadily
+thereafter, which is the expected signature of a system whose divergence is driven
+by a growth rate rather than by a level: small differences in the rate compound.
+
+\begin{figure*}[tb]
+  \centering
+  \includegraphics[width=\textwidth]{01_distribution_P10_P90_timeseries.png}
+  \caption{P10--P90 envelope of the four indicators over 120 Monte Carlo runs, with
+  the ensemble median and the central case. The band contains the central 80\,\% of
+  outcomes.}
+  \label{fig:bands}
+\end{figure*}
+
+By 2050 the ranges are substantial, as Table~\ref{tab:bands} reports: installed
+capacity spans \SIrange{52.3}{82.5}{\giga\watt} between the tenth and ninetieth
+percentile, a factor of 1.6, and required transmission spans
+\SIrange{39858}{57069}{\kilo\meter}. The price range is comparatively narrow,
+\SIrange{116.8}{129.4}{\USD\per\mega\watt\hour}, a spread of about 10\,\% around
+the median. The asymmetry between the two is itself informative: what these
+uncertainties move is \emph{how much infrastructure the country has to build}, far
+more than \emph{what electricity ends up costing}.
+
+\begin{table}[tb]
+  \centering
+  \caption{Indicator values at January 2050 over the 120 Monte Carlo runs.}
+  \label{tab:bands}
+  \small
+  \begin{tabular}{@{}lrrrrr@{}}
+    \toprule
+    Indicator & Central & P10 & P50 & P90 & P90$-$P10 \\
+    \midrule
+    Transmission [\si{\kilo\meter}]            & \num{46341} & \num{39858} & \num{47788} & \num{57069} & \num{17211} \\
+    Transfer capability [\si{\giga\watt}]      & \num{4.56}  & \num{4.23}  & \num{4.70}  & \num{5.29}  & \num{1.06}  \\
+    Installed capacity [\si{\giga\watt}]       & \num{63.85} & \num{52.33} & \num{66.82} & \num{82.49} & \num{30.16} \\
+    Average price [\si{\USD\per\mega\watt\hour}] & \num{124.5} & \num{116.8} & \num{122.8} & \num{129.4} & \num{12.59} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The central case sits close to the median on transmission and capacity but at the
+upper end of the price distribution. That is a consequence of the price
+non-monotonicity identified in Table~\ref{tab:tornado}: because both an increase
+and a decrease in several factors lower the price relative to the reference, the
+reference is near a local maximum.
+
+Supplementary Material~S4.2 reports the convergence of these
+percentiles as runs are added. P10, P50 and P90 are stable from roughly 75 runs
+onwards for every indicator, which is the evidence that 120 samples are sufficient
+rather than an assumption that they are.
+
+\subsection{Central, best and worst case}
+\label{sec:results:extremes}
+
+Table~\ref{tab:extremes} reports the three trajectories selected as described in
+Section~\ref{sec:method:scenarios}. The best case on delivered price is run
+\texttt{mc\_009}, in which demand grows 17.3\,\% faster than the reference; the
+worst is \texttt{mc\_058}, in which it grows 16.5\,\% slower.
+
+\begin{table}[tb]
+  \centering
+  \caption{Central, best and worst case. Best and worst are the Monte Carlo runs
+  with the lowest and the highest country average price over the final twelve
+  months. Percentages are relative to the central case.}
+  \label{tab:extremes}
+  \small
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    & Central & Best (\texttt{mc\_009}) & Worst (\texttt{mc\_058}) \\
+    \midrule
+    \multicolumn{4}{@{}l}{\emph{Factor values}} \\
+    Demand growth           & $0.0\%$ & $+17.3\%$ & $-16.5\%$ \\
+    Generation lead time    & $0.0\%$ & $+9.8\%$  & $-5.4\%$  \\
+    Transmission lead time  & $0.0\%$ & $+2.6\%$  & $+8.2\%$  \\
+    Fuel price              & $0.0\%$ & $-2.5\%$  & $-1.1\%$  \\
+    \midrule
+    \multicolumn{4}{@{}l}{\emph{Indicators at January 2050}} \\
+    Transmission [\si{\kilo\meter}]       & \num{46341} & \num{58562} $(+26.4\%)$ & \num{38927} $(-16.0\%)$ \\
+    Transfer capability [\si{\giga\watt}] & \num{4.56}  & \num{5.03} $(+10.3\%)$  & \num{4.34} $(-4.8\%)$ \\
+    Installed capacity [\si{\giga\watt}]  & \num{63.85} & \num{86.40} $(+35.3\%)$ & \num{49.18} $(-23.0\%)$ \\
+    Average price [\si{\USD\per\mega\watt\hour}] & \num{124.5} & \num{114.9} $(-7.6\%)$ & \num{135.6} $(+9.0\%)$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+This is the central empirical finding of the paper, and it runs against the
+intuition that higher demand means a more stressed and therefore more expensive
+system. In this model the opposite holds: faster demand growth \emph{lowers} the
+long-run average price. The mechanism is visible in the technology mix.
+Figures~\ref{fig:captech} and~\ref{fig:gentech} show installed capacity and annual
+generation by technology for the three cases. In the best case, onshore wind reaches
+\SI{52.05}{\giga\watt} against \SI{34.83}{\giga\watt} in the central case and
+\SI{25.47}{\giga\watt} in the worst; solar PV reaches \SI{11.51}{\giga\watt} against
+\SI{8.33} and \SI{5.24}{\giga\watt}. Faster demand growth sustains a price signal
+long enough for low-cost renewable capacity to clear the profitability threshold
+earlier and in greater volume; once that capacity is in place it depresses the
+marginal price. Slow demand growth, conversely, suppresses the investment signal,
+leaves the system leaning on existing thermal plant --- thermal generation is
+\SI{10.2}{\tera\watt\hour\per\year} in the worst case against
+\SI{5.6}{\tera\watt\hour\per\year} in the best --- and ends with a higher average
+price despite a smaller system.
+
+\begin{figure*}[tb]
+  \centering
+  \includegraphics[width=\textwidth]{05_installed_capacity_by_technology.png}
+  \caption{Installed capacity by technology for the central, best and worst case.
+  The dashed line is national peak demand. Fourteen model technologies are
+  aggregated into eight series; the mapping is given in Supplementary
+  Material~S5.3.}
+  \label{fig:captech}
+\end{figure*}
+
+\begin{figure*}[tb]
+  \centering
+  \includegraphics[width=\textwidth]{06_generation_by_technology.png}
+  \caption{Annual generation by technology for the central, best and worst case.}
+  \label{fig:gentech}
+\end{figure*}
+
+The corollary is uncomfortable for a planner. The least-cost trajectory is also the
+most infrastructure-intensive: the best case requires \SI{58562}{\kilo\meter} of
+network, 26.4\,\% more than the central case and 50\,\% more than the worst case,
+together with 10.3\,\% more inter-zonal transfer capability. The cheapest electricity
+in this system is not obtained by building less; it is obtained by building more,
+faster. Figure~\ref{fig:price} shows the resulting price paths and
+Figure~\ref{fig:transmission} the transmission requirement.
+
+\begin{figure*}[tb]
+  \centering
+  \includegraphics[width=\textwidth]{04_price_best_worst.png}
+  \caption{Country average electricity price for the central, best and worst case.}
+  \label{fig:price}
+\end{figure*}
+
+\begin{figure*}[tb]
+  \centering
+  \includegraphics[width=\textwidth]{08_transmission_km.png}
+  \caption{Transmission network by category --- demand connection, generation
+  connection and interconnection --- for the central, best and worst case.}
+  \label{fig:transmission}
+\end{figure*}
+
+A second observation concerns the delay factors. The best case has \emph{longer}
+generation lead times than the central case ($+9.8$\,\%) and the worst case has
+shorter ones ($-5.4$\,\%). This is not evidence that delays are beneficial; it is a
+consequence of their weakness relative to demand. Within the sampled ranges, the
+demand draw determines the outcome and the delay draw is close to noise, so the
+extreme runs on price carry essentially arbitrary delay values. Reporting this
+explicitly is more honest than selecting extreme runs that happen to tell a tidier
+story, and it is itself the clearest statement of the ranking: in this system, over
+these ranges, lead times do not decide the outcome.
+
+\subsection{Where the uncertainty acts}
+\label{sec:results:where}
+
+Decomposing transmission by category (Figure~\ref{fig:transmission}) locates the
+effect. Network built for demand connection scales directly with peak demand and
+therefore inherits the demand factor's variance in full. Network built to connect
+generation follows the investment decision and inherits it indirectly. Inter-zonal
+corridor capability is the least sensitive of the three, and it is the only one
+where transmission lead time ranks second rather than fourth
+(Table~\ref{tab:tornado}): a longer pipeline defers reinforcements, which the series
+topology converts into persistent congestion rather than into a different final
+capacity.
+
+That asymmetry explains why transmission lead time barely registers in the
+aggregate indicators while remaining operationally important. The model builds
+essentially the same network in the end; what the lead time changes is \emph{when}
+it is available, and in a longitudinal system the cost of that timing shows up as
+congestion between zones rather than as a different system size.

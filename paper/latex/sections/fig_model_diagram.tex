@@ -1,0 +1,114 @@
+% Block diagram of the model: modules, the flows between them, and the parameters
+% that govern each one. The four sensitivity knobs of the experiment are drawn in
+% the accent colour so the reader can see where in the structure they act.
+%
+% Laid out on an explicit coordinate grid rather than with relative positioning:
+% the boxes carry enough text that `below=of` chains drift and overlap. Outputs sit
+% in a bottom row rather than a right-hand column, which is what keeps the figure
+% inside the text width.
+\begin{figure*}[tb]
+\centering
+\begin{tikzpicture}[
+  x=1cm, y=1cm, scale=0.92, transform shape,
+  mod/.style={draw=black!65, rounded corners=2pt, fill=blue!4, align=center,
+              text width=26mm, minimum height=13mm, inner sep=3pt, font=\scriptsize},
+  pipe/.style={mod, fill=orange!10},
+  outp/.style={draw=black!65, rounded corners=2pt, fill=black!5, align=center,
+               text width=34mm, minimum height=8mm, inner sep=3pt, font=\scriptsize},
+  par/.style={align=left, font=\tiny, text=black!55, text width=29mm, inner sep=1pt},
+  knob/.style={draw=red!65!black, fill=red!8, rounded corners=1pt, align=center,
+               font=\tiny\bfseries, inner sep=2pt, text=red!55!black, text width=21mm},
+  fl/.style={-{Latex[length=1.5mm]}, draw=black!55, semithick},
+  fb/.style={-{Latex[length=1.5mm]}, draw=black!45, semithick, dashed},
+  lbl/.style={font=\tiny, text=black!55, inner sep=1pt},
+]
+
+\def\rA{7.2}   % top row: needs, decision, generation pipeline
+\def\rB{3.2}   % bottom row: demand, dispatch, transmission pipeline
+\def\rM{5.2}   % transmission expansion, between the two rows
+\def\rO{-0.9}  % outputs
+
+% ============ column 1 ======================================================
+\node[mod]  (need) at (0,\rA) {\textbf{Availability and needs}\\[1pt]
+  reserve margin and energy balance at horizons $f_0 \dots f_9$};
+\node[par]  at (-1.5,\rA-1.3) {$\bar m$ desired margin $=0.25$\\
+                               $\sigma$ grid security margin $=0.30$};
+
+\node[mod]  (dem) at (0,\rB) {\textbf{Demand}\\[1pt]
+  hourly national demand by horizon, split across zones};
+\node[par]  at (-1.5,\rB-1.3) {24 hourly levels $\times$ 420 months\\
+                               zonal shares by month};
+\node[knob] (kdem) at (0,\rB+1.45) {demand growth $g_D$};
+
+% ============ column 2 ======================================================
+\node[mod]  (inv) at (4.3,\rA) {\textbf{Investment decision}\\[1pt]
+  NPV per zone--technology; logit allocation};
+\node[par]  at (2.8,\rA-1.5) {$\Pi^{*}$ threshold $=1.2$;\;
+                              $\theta$ scale $=10^{8}$\\
+                              $r$ discount rate $=0.10$\\
+                              CAPEX, FOM, ENFICC (NREL)};
+
+\node[mod]  (disp) at (4.3,\rB) {\textbf{Dispatch}\\[1pt]
+  hourly merit order, one representative day per month};
+\node[par]  at (2.8,\rB-1.45) {24 h $\times$ 12 months\\
+                               offer price by technology and zone\\
+                               hydro offer from reservoir level};
+\node[knob] (kfuel) at (4.3,\rB+1.45) {fuel price $c_f$};
+
+% ============ column 3 ======================================================
+\node[pipe] (gpipe) at (8.6,\rA) {\textbf{Generation pipeline}\\[1pt]
+  licensing $\to$ construction $\to$ commissioning};
+\node[par]  at (7.1,\rA-1.4) {$L^{\text{lic}}_{g}=24$ mo\\
+                              $L^{\text{con}}_{g}=24$--60 mo\\
+                              $L_{g}$ lifetime $=300$ mo};
+\node[knob] (kgen) at (8.6,\rA+1.45) {generation lead time $\Delta_g$};
+
+\node[pipe] (tpipe) at (8.6,\rB) {\textbf{Transmission pipeline}\\[1pt]
+  tender $\to$ selection $\to$ licensing $\to$ construction};
+\node[par]  at (7.1,\rB-1.5) {lines $97$ mo total\\
+                              GETs $73$ mo total\\
+                              planning cycle $12$ mo (not scaled)};
+\node[knob] (ktr) at (8.6,\rB+1.45) {transmission lead time $\Delta_t$};
+
+% ============ column 4 ======================================================
+\node[mod]  (tcat) at (12.9,\rM) {\textbf{Transmission expansion}\\[1pt]
+  by demand $\kappa_d$; by generation $\kappa_g$; by interconnection};
+\node[par]  at (12.95,\rM-1.6) {$F_{\min}=200$ MW, $F_{\max}=500$ MW\\
+                                $\alpha$ allowed GET share $=0.30$\\
+                                $c_t=176.61$ USD/km-day};
+
+% ============ outputs (bottom row) =========================================
+\node[outp] (out1) at (1.1,\rO)  {Installed capacity by technology [GW]};
+\node[outp] (out2) at (6.4,\rO)  {Transmission network [km] and corridor capacity [GW]};
+\node[outp] (out3) at (11.7,\rO) {Country average price [USD/MWh]};
+
+% ============ flows ========================================================
+\draw[fl] (dem)        -- (need);
+\draw[fl] (need)       -- (inv);
+\draw[fl] (dem.east)   -- (disp.west);
+\draw[fl] (disp)       -- (inv);
+\draw[fl] (inv)        -- (gpipe);
+\draw[fl] (disp.east)  -- node[lbl, above] {zonal deficits} (tpipe.west);
+\draw[fl] (gpipe.east) -- ([yshift=2.5mm]tcat.west);
+\draw[fl] (tpipe.east) -- ([yshift=-2.5mm]tcat.west);
+
+\draw[fl] (gpipe.west) -- ++(-0.45,0) |- (out1.east);
+\draw[fl] (tcat.south) -- ++(0,-4.0) -| (out2.north);
+\draw[fl] (disp.south) -- ++(0,-1.9) -| (out3.north);
+
+% ============ the two feedbacks ============================================
+\draw[fb] (tcat.east) -- ++(0.6,0) |- node[lbl, pos=0.75, above]
+  {network limits commissioning} (gpipe.east);
+\draw[fb] (gpipe.north) -- ++(0,2.5) -| node[lbl, pos=0.22, above]
+  {expected capacity at $f_k$} (need.north);
+
+\end{tikzpicture}
+\caption{Structure of the model. Solid arrows are material and information flows
+within a simulation step; dashed arrows are the two feedbacks that generate the
+behaviour of interest --- commissioning is constrained by the network that has
+actually been delivered, and investment decisions are taken on expected rather than
+current capacity. Grey text gives the governing parameters and their central
+values; the four boxes in red are the uncertain drivers varied in the designed
+experiment of Section~\ref{sec:method:design}.}
+\label{fig:model}
+\end{figure*}
